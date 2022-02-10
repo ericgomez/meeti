@@ -5,6 +5,15 @@ const router = require('./routes')
 
 const app = express()
 
+// enabling ejs with template engine
+app.set('view engine', 'ejs')
+
+// location views
+app.set('views', 'views')
+
+// enabling static files
+app.use(express.static('public'))
+
 // routing
 app.use('/', router)
 
