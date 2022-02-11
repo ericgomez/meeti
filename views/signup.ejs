@@ -1,1 +1,29 @@
-<h1><%- title %></h1>
+<main class="container container-form">
+  <h1><%- title %></h1>
+
+  <form action="/signup" method="post" class="default-form">
+    <div class="campo">
+      <label for="email">Email</label>
+      <input type="email" name="email" placeholder="Email" />
+    </div>
+
+    <div class="campo">
+      <label for="name">Name</label>
+      <input type="text" name="name" placeholder="Name" />
+    </div>
+
+    <div class="campo">
+      <label for="password">Password</label>
+      <input type="password" name="password" placeholder="Password" />
+    </div>
+
+    <div class="campo">
+      <label for="confirm-password">Confirm Password</label>
+      <input type="password" name="confirm-password" placeholder="Confirm Password" />
+    </div>
+
+    <div class="campo send">
+      <input type="submit" class="btn btn-pink" value="Sign up" />
+    </div>
+  </form>
+</main>
