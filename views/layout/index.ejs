@@ -10,8 +10,7 @@
   <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700;900&family=Staatliches&display=swap"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700;900&family=Staatliches&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/app.css" />
 </head>
 
@@ -30,21 +29,25 @@
 
   <% if(locals.messages) { %>
     <% const category=Object.keys(locals.messages) %>
-      <%- if(category.length) {%>
+    <% if(category.length) { %>
+      <% locals.messages[category].forEach(alert=> { %> 
+        <div class="alerts">
+          <p class="alert <%= category %> "><%= alert %> </p>
+        </div>
+      <% }) %>
+    <% } %>
+  <% } %>
+  
+  <%- body %>
 
-        <% } %>
-          <% } %>
+  <footer class="site-footer container">
+    <nav class="nav">
+      <a href="#">Create Group</a> <a href="#">Login</a>
+      <a href="/signup">Sign Up</a>
+    </nav>
 
-            <%- body %>
-
-              <footer class="site-footer container">
-                <nav class="nav">
-                  <a href="#">Create Group</a> <a href="#">Login</a>
-                  <a href="/signup">Sign Up</a>
-                </nav>
-
-                <p class="copyright">All rights reserved Meeti <%- year %> &copy;</p>
-              </footer>
+    <p class="copyright">All rights reserved Meeti <%- year %> &copy;</p>
+  </footer>
 </body>
 
 </html>
