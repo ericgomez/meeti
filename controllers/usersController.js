@@ -1,5 +1,7 @@
 const { body, validationResult } = require('express-validator')
+
 const User = require('../models/users')
+const sendEmail = require('../handlers/email')
 
 const formSignup = (req, res) => {
   res.render('signup', {
@@ -25,10 +27,21 @@ const signup = async (req, res) => {
     // create new user in database
     await User.create(req.body)
 
+    // generate url for confirmation email
+    const url = `${req.headers.origin}/confirm-account/${req.body.email}`
+
+    // send email confirmation to user
+    await sendEmail({
+      user: req.body,
+      subject: 'Confirm your email',
+      template: 'confirm-email',
+      url
+    })
     // flash message and redirect to login
     req.flash('success', 'We have sent you an email to confirm your account')
     res.redirect('/login')
   } catch (error) {
+    console.log(error)
     // get only the errors message from Sequelize
     const errorsSequelize = error.errors.map(err => err.message)
 
