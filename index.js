@@ -1,6 +1,8 @@
 const express = require('express')
 const expressLayouts = require('express-ejs-layouts')
 const bodyParser = require('body-parser')
+const flash = require('connect-flash')
+const session = require('express-session')
 require('dotenv').config()
 
 const db = require('./config/db')
@@ -25,8 +27,26 @@ app.set('views', 'views')
 // enabling static files
 app.use(express.static('public'))
 
+// creating session
+// Since version 1.5.0 express-session, the cookie-parser middleware no longer needs to be used for this purpose.
+app.use(
+  session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
+    }
+  })
+)
+
+// enabling flash messages
+app.use(flash())
+
 // middleware (user logged, flash message, current date)
 app.use((req, res, next) => {
+  res.locals.messages = req.flash()
+
   const date = new Date()
   res.locals.year = date.getFullYear()
 

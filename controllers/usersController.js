@@ -7,9 +7,13 @@ const formSignup = (req, res) => {
 }
 
 const signup = async (req, res) => {
-  const user = await User.create(req.body)
+  try {
+    const user = await User.create(req.body)
 
-  console.log(`User created: ${user}`)
+    console.log(`User created: ${user}`)
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 module.exports = {
