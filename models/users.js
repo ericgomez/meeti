@@ -16,14 +16,13 @@ const User = db.define(
     email: {
       type: Sequelize.STRING(30),
       allowNull: false, // not null
-      unique: true,
       validate: {
         isEmail: {
           msg: 'Invalid email format'
-        },
-        unique: {
-          msg: 'Email already exists'
         }
+      },
+      unique: {
+        msg: 'Email already exists'
       }
     },
     password: {

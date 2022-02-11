@@ -1,5 +1,6 @@
 const express = require('express')
 const expressLayouts = require('express-ejs-layouts')
+const bodyParser = require('body-parser')
 require('dotenv').config()
 
 const db = require('./config/db')
@@ -8,6 +9,10 @@ require('./models/users')
 const router = require('./routes')
 
 const app = express()
+
+// body parser
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
 
 // enabling ejs with template engine
 app.set('view engine', 'ejs')
