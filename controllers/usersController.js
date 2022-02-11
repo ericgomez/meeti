@@ -12,7 +12,12 @@ const signup = async (req, res) => {
 
     console.log(`User created: ${user}`)
   } catch (error) {
-    console.log(error)
+    // get only the errors message
+    const errorsSequelize = error.errors.map(err => err.message)
+    // console.log(errorsSequelize)
+
+    req.flash('error', errorsSequelize)
+    res.redirect('/signup')
   }
 }
 
