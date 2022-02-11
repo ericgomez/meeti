@@ -5,9 +5,6 @@ const flash = require('connect-flash')
 const session = require('express-session')
 require('dotenv').config()
 
-const db = require('./config/db')
-require('./models/users')
-
 const router = require('./routes')
 
 const app = express()

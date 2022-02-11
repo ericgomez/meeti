@@ -1,0 +1,19 @@
+<main class="container container-form">
+  <h1><%- title %></h1>
+
+  <form action="/login" method="post" class="default-form">
+    <div class="campo">
+      <label for="email">Email</label>
+      <input type="email" name="email" placeholder="Email" />
+    </div>
+
+    <div class="campo">
+      <label for="password">Password</label>
+      <input type="password" name="password" placeholder="Password" />
+    </div>
+
+    <div class="campo send">
+      <input type="submit" class="btn btn-pink" value="Login" />
+    </div>
+  </form>
+</main>

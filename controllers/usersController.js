@@ -22,9 +22,12 @@ const signup = async (req, res) => {
   const errorsExp = validationResult(req)
 
   try {
-    const user = await User.create(req.body)
+    // create new user in database
+    await User.create(req.body)
 
-    console.log(`User created: ${user}`)
+    // flash message and redirect to login
+    req.flash('success', 'We have sent you an email to confirm your account')
+    res.redirect('/login')
   } catch (error) {
     // get only the errors message from Sequelize
     const errorsSequelize = error.errors.map(err => err.message)
@@ -40,7 +43,14 @@ const signup = async (req, res) => {
   }
 }
 
+const formLogin = (req, res) => {
+  res.render('login', {
+    title: 'Login'
+  })
+}
+
 module.exports = {
   formSignup,
-  signup
+  signup,
+  formLogin
 }
