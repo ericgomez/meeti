@@ -3,6 +3,7 @@ const expressLayouts = require('express-ejs-layouts')
 require('dotenv').config()
 
 const db = require('./config/db')
+require('./models/users')
 
 const router = require('./routes')
 
