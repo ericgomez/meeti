@@ -1,12 +1,11 @@
 const { Router } = require('express')
 const router = Router()
 
-router.get('/', (req, res) => {
-  res.render('home')
-})
+const { home } = require('./../controllers/homeController')
+const { formSignup } = require('./../controllers/usersController')
 
-router.get('/signup', (req, res) => {
-  res.render('signup')
-})
+router.get('/', home)
+
+router.get('/signup', formSignup)
 
 module.exports = router
