@@ -17,6 +17,14 @@ app.set('views', 'views')
 // enabling static files
 app.use(express.static('public'))
 
+// middleware (user logged, flash message, current date)
+app.use((req, res, next) => {
+  const date = new Date()
+  res.locals.year = date.getFullYear()
+
+  next()
+})
+
 // routing
 app.use('/', router)
 
