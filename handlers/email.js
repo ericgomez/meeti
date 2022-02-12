@@ -9,14 +9,27 @@ const sendEmail = async options => {
     port: emailConfig.port,
     secure: false, // true for 465, false for other ports
     auth: {
-      user: emailConfig.user, // generated ethereal user
-      pass: emailConfig.pass // generated ethereal password
+      user: emailConfig.user,
+      pass: emailConfig.pass
     }
   })
 
-  console.log(options)
+  const html = await ejs.renderFile(
+    `${__dirname}/../views/emails/${options.template}.ejs`,
+    {
+      url: options.url
+    }
+  )
 
-  //return info
+  // send mail with defined transport object
+  let info = await transporter.sendMail({
+    from: '"Meeti 👻" <noreply@meeti.com>', // sender address
+    to: options.user.email, // list of receivers
+    subject: options.subject, // Subject line
+    html: html
+  })
+
+  return info
 }
 
 module.exports = sendEmail

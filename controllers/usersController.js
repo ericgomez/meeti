@@ -34,7 +34,7 @@ const signup = async (req, res) => {
     await sendEmail({
       user: req.body,
       subject: 'Confirm your email',
-      template: 'confirm-email',
+      template: 'confirm-account',
       url
     })
     // flash message and redirect to login
