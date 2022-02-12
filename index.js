@@ -6,6 +6,7 @@ const session = require('express-session')
 require('dotenv').config()
 
 const router = require('./routes')
+const passport = require('./config/passport')
 
 const app = express()
 
@@ -36,6 +37,10 @@ app.use(
     }
   })
 )
+
+// enabling passport
+app.use(passport.initialize())
+app.use(passport.session())
 
 // enabling flash messages
 app.use(flash())

@@ -9,6 +9,7 @@ const {
   formLogin,
   confirmAccount
 } = require('./../controllers/usersController')
+const { authenticateUser } = require('./../controllers/authController')
 
 router.get('/', home)
 
@@ -20,5 +21,6 @@ router.get('/confirm-account/:email', confirmAccount)
 
 // login
 router.get('/login', formLogin)
+router.post('/login', authenticateUser)
 
 module.exports = router
