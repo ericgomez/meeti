@@ -10,18 +10,14 @@ passport.use(
     // NOTE: done is equal next
     async (email, password, done) => {
       // is executed when filling the form
-      const user = await User.findOne({ where: { email } })
+      const user = await User.findOne({ where: { email, status: true } })
 
-      if (!user) {
-        return done(null, false, { message: 'User not found' })
-      }
+      if (!user) return done(null, false, { message: 'User not found' })
 
       // method to validate password from user model
       const match = user.validPassword(password)
 
-      if (!match) {
-        return done(null, false, { message: 'Wrong password' })
-      }
+      if (!match) return done(null, false, { message: 'Wrong password' })
 
       // if everything is ok, return user
       return done(null, user)
