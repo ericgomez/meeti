@@ -62,8 +62,42 @@ const formLogin = (req, res) => {
   })
 }
 
+const confirmAccount = async (req, res, next) => {
+  // check if user exists
+  const user = await User.findOne({
+    where: {
+      email: req.params.email
+    }
+  })
+
+  if (!user) {
+    req.flash('error', 'User not found')
+    res.redirect('/login')
+
+    return next()
+  }
+
+  // check if user is already active
+  if (user.status) {
+    req.flash('error', 'User is already active')
+    res.redirect('/login')
+
+    return next()
+  }
+
+  // update user status to active
+  await user.update({
+    status: true
+  })
+
+  // flash message and redirect to login
+  req.flash('success', 'Your account is now active')
+  res.redirect('/login')
+}
+
 module.exports = {
   formSignup,
   signup,
-  formLogin
+  formLogin,
+  confirmAccount
 }
