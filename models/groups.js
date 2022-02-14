@@ -5,7 +5,7 @@ const db = require('../config/db')
 const User = require('./users')
 const Category = require('./categories')
 
-const Group = dn.define('group', {
+const Group = db.define('group', {
   id: {
     type: Sequelize.UUID,
     primaryKey: true,
