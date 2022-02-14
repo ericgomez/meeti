@@ -14,6 +14,7 @@ const {
   isAuthenticatedUser
 } = require('./../controllers/authController')
 const { adminPanel } = require('./../controllers/adminController')
+const { formNewGroup } = require('./../controllers/groupsController')
 
 router.get('/', home)
 
@@ -29,5 +30,8 @@ router.post('/login', authenticateUser)
 
 // administration panel
 router.get('/admin', isAuthenticatedUser, adminPanel)
+
+// new group
+router.get('/new-group', isAuthenticatedUser, formNewGroup)
 
 module.exports = router
