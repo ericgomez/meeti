@@ -1,32 +1,23 @@
-const multer = require('multer')
-const { nanoid } = require('nanoid')
-
 const Category = require('../models/categories')
 const Group = require('../models/groups')
-const { validateFieldsGroup } = require('../middlewares/validate-fields')
-
-const storage = multer.diskStorage({
-  destination: function (req, file, next) {
-    next(null, './public/uploads/groups/')
-  },
-  filename: function (req, file, next) {
-    const extension = file.mimetype.split('/')[1]
-
-    // generate a unique name
-    next(null, `${nanoid()}.${extension}`)
-  }
-})
-
-const upload = multer({ storage }).single('image')
+const { validateFieldsGroup } = require('../middlewares/validateFields')
+const multer = require('../middlewares/fileUpload')
 
 // upload image
 const uploadImage = async (req, res, next) => {
+  const upload = multer.single('image')
+
   upload(req, res, async error => {
     if (error) {
-      console.log(error)
-
-      req.flash('error', error.message)
-      res.redirect('/new-group')
+      if (error instanceof multer.MulterError) {
+        if (error.code === 'LIMIT_FILE_SIZE') {
+          req.flash('error', 'The file size is too big')
+        } else {
+          req.flash('error', error.message)
+        }
+      }
+      // redirect to back
+      return res.redirect('back')
     } else {
       next()
     }
