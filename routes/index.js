@@ -9,7 +9,10 @@ const {
   formLogin,
   confirmAccount
 } = require('./../controllers/usersController')
-const { authenticateUser } = require('./../controllers/authController')
+const {
+  authenticateUser,
+  isAuthenticatedUser
+} = require('./../controllers/authController')
 const { adminPanel } = require('./../controllers/adminController')
 
 router.get('/', home)
@@ -25,6 +28,6 @@ router.get('/login', formLogin)
 router.post('/login', authenticateUser)
 
 // administration panel
-router.get('/admin', adminPanel)
+router.get('/admin', isAuthenticatedUser, adminPanel)
 
 module.exports = router
