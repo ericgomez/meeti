@@ -17,13 +17,11 @@
     <div class="campo">
       <label for="catefory">Category</label>
 
-      <select name="category" id="category">
-        <option value="">Select a category</option>
-        <option value="work">Work</option>
-        <option value="life">Life</option>
-        <option value="family">Family</option>
-        <option value="friends">Friends</option>
-        <option value="other">Other</option>
+      <select name="category">
+        <option value="" selected disabled>Select a category</option>
+        <% categories.forEach(function(category) { %>
+          <option value="<%- category.id %>"><%- category.name %></option>
+        <% }) %>
       </select>
     </div>
 
