@@ -1,5 +1,8 @@
+const { body, validationResult } = require('express-validator')
+
 const Category = require('../models/categories')
 const Group = require('../models/groups')
+const { validateFieldsGroup } = require('../middlewares/validate-fields')
 
 const formNewGroup = async (req, res) => {
   const categories = await Category.findAll()
@@ -11,23 +14,26 @@ const formNewGroup = async (req, res) => {
 }
 
 const createGroup = async (req, res) => {
-  const { name, description, category, image, url } = req.body
+  // sanitize fields
+  await validateFieldsGroup(req)
+
+  const group = req.body
+
+  // add user id
+  group.userId = req.user.id
+  group.categoryId = req.body.category
 
   try {
-    const group = await Group.create({
-      name,
-      description,
-      category,
-      image,
-      url
-    })
+    const newGroup = await Group.create(group)
 
-    req.flash('success', `Group ${group.name} was created successfully`)
+    req.flash('success', `Group ${newGroup.name} was created successfully`)
     res.redirect('/admin')
   } catch (error) {
     console.log(error)
+    // get only the errors message from Sequelize
+    const errorsSequelize = error.errors.map(err => err.message)
 
-    req.flash('error', error)
+    req.flash('error', errorsSequelize)
     res.redirect('/new-group')
   }
 }
