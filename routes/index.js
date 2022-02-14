@@ -16,6 +16,7 @@ const {
 const { adminPanel } = require('./../controllers/adminController')
 const {
   formNewGroup,
+  uploadImage,
   createGroup
 } = require('./../controllers/groupsController')
 
@@ -36,6 +37,6 @@ router.get('/admin', isAuthenticatedUser, adminPanel)
 
 // new group
 router.get('/new-group', isAuthenticatedUser, formNewGroup)
-router.post('/new-group', isAuthenticatedUser, createGroup)
+router.post('/new-group', uploadImage, createGroup)
 
 module.exports = router
