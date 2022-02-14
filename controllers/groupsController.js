@@ -9,12 +9,13 @@ const uploadImage = async (req, res, next) => {
 
   upload(req, res, async error => {
     if (error) {
-      if (error instanceof multer.MulterError) {
-        if (error.code === 'LIMIT_FILE_SIZE') {
-          req.flash('error', 'The file size is too big')
-        } else {
-          req.flash('error', error.message)
-        }
+      if (error.code === 'LIMIT_FILE_SIZE') {
+        req.flash('error', 'The file size is too big')
+      } else if (error.hasOwnProperty('message')) {
+        // access the error message directly of new Error
+        req.flash('error', error.message)
+      } else {
+        req.flash('error', error.message)
       }
       // redirect to back
       return res.redirect('back')
@@ -44,7 +45,9 @@ const createGroup = async (req, res) => {
   group.categoryId = req.body.category
 
   // add only name of image
-  group.image = req.file.filename
+  if (req.file) {
+    group.image = req.file.filename
+  }
 
   try {
     const newGroup = await Group.create(group)
