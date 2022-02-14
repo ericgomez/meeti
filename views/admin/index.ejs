@@ -27,29 +27,23 @@
   </div>
   <div class="section-admin">
     <h2>Yours Groups</h2>
-
-    <ul>
-      <li>
-        <div class="information-admin">
-          <h3>BlockChain Guadalajara</h3>
-        </div>
-        <div class="actions container buttons">
-          <a href="#" class="btn btn-green">Edit</a>
-          <a href="#" class="btn btn-blue2">Image</a>
-          <a href="#" class="btn btn-red">Delete</a>
-        </div>
-      </li>
-
-      <li>
-        <div class="information-admin">
-          <h3>GraphQL Guadalajara</h3>
-        </div>
-        <div class="actions container buttons">
-          <a href="#" class="btn btn-green">Edit</a>
-          <a href="#" class="btn btn-blue2">Image</a>
-          <a href="#" class="btn btn-red">Delete</a>
-        </div>
-      </li>
-    </ul>
+    <% if(groups.length) { %> 
+      <ul>
+        <% groups.forEach(group => { %> 
+        <li>
+          <div class="information-admin">
+            <h3><%- group.name %> </h3>
+          </div>
+          <div class="actions container buttons">
+            <a href="/edit-group/<%- group.id  %>" class="btn btn-green">Edit</a>
+            <a href="/image-group/<%- group.id  %>" class="btn btn-blue2">Image</a>
+            <a href="/delete-group/<%- group.id  %>" class="btn btn-red">Delete</a>
+          </div>
+        </li>
+        <% }) %>
+      </ul>
+    <% } else { %>
+      <h3>You don't have any group</h3>
+    <% } %>
   </div>
 </main>
