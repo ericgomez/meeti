@@ -88,7 +88,7 @@ p {
 .btn:hover {
   cursor: pointer;
 }
-.btn-amarillo {
+.btn-yellow {
   background-color: #ff8000;
 }
 .btn-pink {
@@ -100,7 +100,7 @@ p {
 .btn-orange {
   background-color: #e4572e;
 }
-.btn-verde {
+.btn-green {
   background-color: #688e26;
 }
 .btn-blue2 {
@@ -137,6 +137,9 @@ p {
   flex-direction: column;
   justify-content: space-between;
   min-height: 250px;
+}
+.information-admin {
+  margin-left: 20px;
 }
 .card h3,
 .information-admin h3 {
