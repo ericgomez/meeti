@@ -19,7 +19,8 @@ const {
   uploadImage,
   createGroup,
   formEditGroup,
-  editGroup
+  editGroup,
+  formEditImage
 } = require('./../controllers/groupsController')
 
 router.get('/', home)
@@ -44,5 +45,8 @@ router.post('/new-group', isAuthenticatedUser, uploadImage, createGroup)
 // edit group
 router.get('/edit-group/:groupId', isAuthenticatedUser, formEditGroup)
 router.post('/edit-group/:groupId', isAuthenticatedUser, editGroup)
+
+// edit image
+router.get('/image-group/:groupId', isAuthenticatedUser, formEditImage)
 
 module.exports = router

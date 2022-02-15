@@ -1,0 +1,22 @@
+<main class="container container-forms no-padding">
+  <h1><%- title %> </h1>
+
+  <form class="default-form" method="post" enctype="multipart/form-data">
+    
+    <div class="campo">
+      <label for="image">Image</label>
+      <input type="file" name="image">
+    </div>
+    <% if(group.image) { %> 
+      <div class="campo">
+        <label for="image">Current Image</label>
+        <img src="/uploads/groups/<%- group.image %>" alt="<%- group.name %>" width="400">
+    </div>
+    <% } else { %>
+      <p> Not Image </p>
+    <% } %>
+    <div class="campo send">
+      <input type="submit" class="btn btn-pink" value="Upload Image">
+    </div>
+  </form>
+</main>
