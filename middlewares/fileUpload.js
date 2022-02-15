@@ -17,8 +17,11 @@ const configMulter = {
     }
   }),
   fileFilter: (req, file, next) => {
+    console.log(file)
     // only images
-    if (file.mimetype !== 'image/jpeg' || file.mimetype !== 'image/png') {
+    // false = !( true = true || false)
+    // true = !( false = false || false)
+    if (!(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png')) {
       return next(new Error('Only images are allowed'), false)
     }
 

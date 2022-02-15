@@ -1,3 +1,5 @@
+const fs = require('fs')
+
 const Category = require('../models/categories')
 const Group = require('../models/groups')
 const { validateFieldsGroup } = require('../middlewares/validateFields')
@@ -128,11 +130,60 @@ const formEditImage = async (req, res) => {
   })
 }
 
+const editImage = async (req, res, next) => {
+  // check if the user is the owner of the group
+  const group = await Group.findOne({
+    where: { id: req.params.groupId, userId: req.user.id }
+  })
+
+  if (!group) {
+    req.flash('error', 'You are not the owner of this group')
+    res.redirect('back')
+
+    return next()
+  }
+
+  // check if a previous image exists and a new image exists
+  if (req.file && group.image) {
+    const pathImage = `./public/uploads/groups/${group.image}`
+
+    // delete the previous image asynchronously
+    // no required await because it is not a blocking operation
+    fs.unlink(pathImage, error => {
+      if (error) {
+        console.log(error)
+      }
+
+      return
+    })
+  }
+
+  // add only name of image
+  if (req.file) {
+    group.image = req.file.filename
+  }
+
+  try {
+    await group.save()
+
+    req.flash('success', `Image of ${group.name} was updated successfully`)
+    res.redirect('/admin')
+  } catch (error) {
+    console.log(error)
+    // get only the errors message from Sequelize
+    const errorsSequelize = error.errors.map(err => err.message)
+
+    req.flash('error', errorsSequelize)
+    res.redirect('/edit-image')
+  }
+}
+
 module.exports = {
   formNewGroup,
   createGroup,
   uploadImage,
   formEditGroup,
   editGroup,
-  formEditImage
+  formEditImage,
+  editImage
 }
