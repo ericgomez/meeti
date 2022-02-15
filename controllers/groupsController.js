@@ -197,6 +197,49 @@ const formDeleteGroup = async (req, res, next) => {
   })
 }
 
+const deleteGroup = async (req, res, next) => {
+  // check if the user is the owner of the group
+  const group = await Group.findOne({
+    where: { id: req.params.groupId, userId: req.user.id }
+  })
+
+  if (!group) {
+    req.flash('error', 'Group not found')
+    res.redirect('back')
+
+    return next()
+  }
+
+  // check if a image exists
+  if (group.image) {
+    const pathImage = `./public/uploads/groups/${group.image}`
+
+    // delete the previous image asynchronously
+    // no required await because it is not a blocking operation
+    fs.unlink(pathImage, error => {
+      if (error) {
+        console.log(error)
+      }
+
+      return
+    })
+  }
+
+  try {
+    await group.destroy()
+
+    req.flash('success', `Group ${group.name} was deleted successfully`)
+    res.redirect('/admin')
+  } catch (error) {
+    console.log(error)
+    // get only the errors message from Sequelize
+    const errorsSequelize = error.errors.map(err => err.message)
+
+    req.flash('error', errorsSequelize)
+    res.redirect('/delete-group')
+  }
+}
+
 module.exports = {
   formNewGroup,
   createGroup,
@@ -205,5 +248,6 @@ module.exports = {
   editGroup,
   formEditImage,
   editImage,
-  formDeleteGroup
+  formDeleteGroup,
+  deleteGroup
 }

@@ -22,7 +22,8 @@ const {
   editGroup,
   formEditImage,
   editImage,
-  formDeleteGroup
+  formDeleteGroup,
+  deleteGroup
 } = require('./../controllers/groupsController')
 
 router.get('/', home)
@@ -59,5 +60,6 @@ router.post(
 
 // delete group
 router.get('/delete-group/:groupId', isAuthenticatedUser, formDeleteGroup)
+router.post('/delete-group/:groupId', isAuthenticatedUser, deleteGroup)
 
 module.exports = router
