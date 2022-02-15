@@ -26,6 +26,8 @@ const {
   deleteGroup
 } = require('./../controllers/groupsController')
 
+const { formNewMeeti } = require('./../controllers/meetiController')
+
 router.get('/', home)
 
 router.get('/signup', formSignup)
@@ -61,5 +63,8 @@ router.post(
 // delete group
 router.get('/delete-group/:groupId', isAuthenticatedUser, formDeleteGroup)
 router.post('/delete-group/:groupId', isAuthenticatedUser, deleteGroup)
+
+// new meeti
+router.get('/new-meeti', isAuthenticatedUser, formNewMeeti)
 
 module.exports = router

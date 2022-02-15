@@ -1,0 +1,87 @@
+<main class="container container-forms">
+	<h1>
+		<%- title %>
+	</h1>
+	<form class="default-form" action="/new-meeti" method="post">
+		<legend>About the Meeti</legend>
+		<div class="campo">
+			<label>Group</label>
+			<select name="groupId">
+				<option value="" selected disabled>Select a group</option>
+				<% if(groups.length > 0) { %>
+					<% groups.forEach(function(group) { %>
+						<option value="<%- group.id %>" >
+							<%- group.name %>
+						</option>
+					<% }) %>
+				<% } %>
+			</select>
+		</div>
+		<div class="campo">
+			<label>Title</label>
+			<input type="text" name="title" placeholder="Title Meeti">
+		</div>
+		<div class="campo">
+			<label>Guest</label>
+			<input type="text" name="guest" placeholder="Name Guest or Speaker (if apply)">
+		</div>
+		<div class="colum-2 grid">
+			<div class="campo">
+				<label>Date</label>
+				<input type="date" name="date" placeholder="Date Meeti">
+			</div>
+			<div class="campo">
+				<label>Hour</label>
+				<input type="time" name="hour" placeholder="Hour Meeti">
+			</div>
+		</div>
+		<div class="campo">
+			<label>Share</label>
+			<input type="number" min="1" name="share" placeholder="Share Meeti (if apply)">
+		</div>
+		<div class="campo description">
+			<label>Description</label>
+			<div class="container-editor">
+				<input type="hidden" id="x" name="description">
+				<trix-editor input="x"></trix-editor>
+			</div>
+		</div>
+
+		<legend>Location Meeti</legend>
+		<div class="campo searching">
+			<label>Enter the address of the Meeti</label>
+			<div class="container-input">
+				<input type="text" id="formSearching" placeholder="Location">
+				<small>The wizard will place an estimated address</small>
+			</div>
+		</div>
+		<p class="information">Confirm that the following fields are correct:</p>
+		<div class="campo">
+			<label>Direction</label>
+			<input type="text" id="direction" name="direction" placeholder="Direction">
+		</div>
+		<div class="campo">
+			<label>City</label>
+			<input type="text" id="country" name="country" placeholder="Country">
+		</div>
+		<div class="campo">
+			<label>State</label>
+			<input type="text" id="state" name="state" placeholder="State">
+		</div>
+		<div class="campo">
+			<label>Country</label>
+			<input type="text" id="country" name="country" placeholder="Country">
+		</div>
+		<div class="campo">
+			<label>Latitude</label>
+			<input type="text" id="lat" name="lat">
+		</div>
+		<div class="campo">
+			<label>Longitude</label>
+			<input type="text" id="lng" name="lng">
+		</div>
+		<div class="campo send">
+			<input type="submit" class="btn btn-pink" value="Create Meeti">
+		</div>
+	</form>
+</main>

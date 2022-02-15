@@ -546,13 +546,31 @@ trix-toolbar .trix-button--icon-strike {
   }
 }
 
+.container-input {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.container-input small {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f4c5c;
+  margin: 1rem 0;
+}
+
+.information {
+  text-align: center;
+  font-weight: 700;
+}
+
 /** assistants **/
-.assistants .titulo {
+.assistants .title {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.assistants .titulo a {
+.assistants .title a {
   color: #068d9d;
   font-weight: 700;
   font-size: 1.4rem;
