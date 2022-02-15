@@ -178,6 +178,25 @@ const editImage = async (req, res, next) => {
   }
 }
 
+const formDeleteGroup = async (req, res, next) => {
+  // check if the user is the owner of the group
+  const group = await Group.findOne({
+    where: { id: req.params.groupId, userId: req.user.id }
+  })
+
+  if (!group) {
+    req.flash('error', 'Group not found')
+    res.redirect('back')
+
+    return next()
+  }
+
+  res.render('groups/delete-group', {
+    title: `Delete Group: ${group.name}`,
+    group
+  })
+}
+
 module.exports = {
   formNewGroup,
   createGroup,
@@ -185,5 +204,6 @@ module.exports = {
   formEditGroup,
   editGroup,
   formEditImage,
-  editImage
+  editImage,
+  formDeleteGroup
 }
