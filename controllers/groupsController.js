@@ -64,8 +64,18 @@ const createGroup = async (req, res) => {
   }
 }
 
+const formEditGroup = async (req, res) => {
+  const group = await Group.findByPk(req.params.groupId)
+
+  res.render('groups/edit-group', {
+    title: `Edit Group: ${group.name}`,
+    group
+  })
+}
+
 module.exports = {
   formNewGroup,
   createGroup,
-  uploadImage
+  uploadImage,
+  formEditGroup
 }

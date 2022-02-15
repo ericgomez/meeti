@@ -1,0 +1,35 @@
+<main class="container container-forms no-padding">
+  <h1><%- title %> </h1>
+
+  <form class="default-form" method="post">
+    <div class="campo">
+      <label for="name">Name</label>
+      <input type="text" name="name" placeholder="Name Group" value="<%- group.name %> ">
+    </div>
+
+    <div class="campo description">
+      <label for="description">Description</label>
+      <div class="container-editor">
+        <input type="hidden" name="description" id="description" value="<%-group.description %> ">
+        <trix-editor input="description"></trix-editor>
+      </div>
+    </div>
+    <div class="campo">
+      <label for="catefory">Category</label>
+
+      <select name="category">
+        <option value="" selected disabled>Select a category</option>
+        
+      </select>
+    </div>
+
+    <div class="campo">
+      <label for="url">Website</label>
+      <input type="url" name="url" placeholder="Website" value="<%- group.url %> ">
+    </div>
+
+    <div class="campo send">
+      <input type="submit" class="btn btn-pink" value="Save Changes">
+    </div>
+  </form>
+</main>
