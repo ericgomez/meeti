@@ -80,9 +80,49 @@ const formEditGroup = async (req, res) => {
   })
 }
 
+const editGroup = async (req, res, next) => {
+  // check if the user is the owner of the group
+  const group = await Group.findOne({
+    where: { id: req.params.groupId, userId: req.user.id }
+  })
+
+  if (!group) {
+    req.flash('error', 'You are not the owner of this group')
+    res.redirect('back')
+
+    return next()
+  }
+
+  // sanitize fields
+  await validateFieldsGroup(req)
+
+  const { name, description, categoryId, url } = req.body
+
+  group.name = name
+  group.description = description
+  group.categoryId = categoryId
+  group.url = url
+
+  // save in the database
+  try {
+    await group.save()
+
+    req.flash('success', `Group ${group.name} was updated successfully`)
+    res.redirect('/admin')
+  } catch (error) {
+    console.log(error)
+    // get only the errors message from Sequelize
+    const errorsSequelize = error.errors.map(err => err.message)
+
+    req.flash('error', errorsSequelize)
+    res.redirect('/edit-group')
+  }
+}
+
 module.exports = {
   formNewGroup,
   createGroup,
   uploadImage,
-  formEditGroup
+  formEditGroup,
+  editGroup
 }
