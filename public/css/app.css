@@ -317,6 +317,21 @@ main.categories {
 .meeti p {
   font-size: 1.4rem;
 }
+
+.map {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e6e6e6;
+  width: 100%;
+  height: 400px;
+}
+
+.map > :first-child {
+  width: 100%;
+  height: 100%;
+}
+
 /** Footer **/
 .site-footer {
   padding: 1rem 0 2rem 0;
