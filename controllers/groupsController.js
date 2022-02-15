@@ -65,11 +65,18 @@ const createGroup = async (req, res) => {
 }
 
 const formEditGroup = async (req, res) => {
-  const group = await Group.findByPk(req.params.groupId)
+  const groupPromise = Group.findByPk(req.params.groupId)
+  const categoriesPromise = Category.findAll()
+
+  const [group, categories] = await Promise.all([
+    groupPromise,
+    categoriesPromise
+  ])
 
   res.render('groups/edit-group', {
     title: `Edit Group: ${group.name}`,
-    group
+    group,
+    categories
   })
 }
 
