@@ -24,8 +24,19 @@ const searchDirection = e => {
     provider
       .search({ query: e.target.value || '' })
       .then(results => {
-        const { x: lng, y: lat } = results[0]
+        const { x: lng, y: lat, label } = results[0]
+
+        // show location in map
         map.setView([lat, lng], 13)
+
+        // show pin in map
+        L.marker([lat, lng], {
+          draggable: true, // make the marker draggable
+          autoPan: true // auto pan to the location
+        })
+          .addTo(map)
+          .bindPopup(label) // bind a popup to the marker
+          .openPopup() // open the popup
       })
       .catch(err => console.error(err))
   }, 1000)
