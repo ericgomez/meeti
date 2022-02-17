@@ -10,9 +10,9 @@
 
   <div class="section-admin">
     <h2>Upcoming Meeti's</h2>
-    <% if(groups.length) { %> 
+    <% if(nextMeeti.length) { %> 
     <ul>
-      <% meeti.forEach(meet => { %> 
+      <% nextMeeti.forEach(meet => { %> 
       <li>
         <div class="information-admin">
           <!-- < % moment.locale('es') % >  -->
@@ -29,7 +29,7 @@
       <% }) %>
     </ul>
     <% } else { %>
-      <h3>You don't have any meeti</h3>
+      <h3>You don't have any next meeti</h3>
     <% } %>
   </div>
   <div class="section-admin">
@@ -51,6 +51,30 @@
       </ul>
     <% } else { %>
       <h3>You don't have any group</h3>
+    <% } %>
+  </div>
+  <div class="section-admin">
+    <h2>Past Meeti's</h2>
+    <% if(pastMeeti.length) { %> 
+    <ul>
+      <% pastMeeti.forEach(meet => { %> 
+      <li>
+        <div class="information-admin">
+          <!-- < % moment.locale('es') % >  -->
+          <p class="date"><%- moment(`${meet.date} ${meet.time}`).format('LLLL') %> Hours</p>
+          <h3><%- meet.title %></h3>
+          <small><%- meet.interested.length %> Interested</small>
+        </div>
+        <div class="actions container buttons">
+          <a href="/edit-meeti/<%- meet.id %>" class="btn btn-green">Edit</a>
+          <a href="/assistants-meeti/<%- meet.id %>" class="btn btn-blue2">Assistants</a>
+          <a href="/delete-meeti/<%- meet.id %>" class="btn btn-red">Delete</a>
+        </div>
+      </li>
+      <% }) %>
+    </ul>
+    <% } else { %>
+      <h3>You don't have any past meeti</h3>
     <% } %>
   </div>
 </main>

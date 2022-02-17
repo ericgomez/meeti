@@ -6,7 +6,7 @@ const Meeti = require('../models/meeti')
 
 const adminPanel = async (req, res) => {
   const groupPromise = Group.findAll({ where: { userId: req.user.id } })
-  const meetiPromise = Meeti.findAll({
+  const nextMeetiPromise = Meeti.findAll({
     where: {
       userId: req.user.id,
       date: {
@@ -14,13 +14,26 @@ const adminPanel = async (req, res) => {
       }
     }
   })
+  const pastMeetiPromise = Meeti.findAll({
+    where: {
+      userId: req.user.id,
+      date: {
+        [Op.lt]: moment().format('YYYY-MM-DD')
+      }
+    }
+  })
 
-  const [groups, meeti] = await Promise.all([groupPromise, meetiPromise])
+  const [groups, nextMeeti, pastMeeti] = await Promise.all([
+    groupPromise,
+    nextMeetiPromise,
+    pastMeetiPromise
+  ])
 
   res.render('admin/index', {
     title: 'Admin Panel',
     groups,
-    meeti,
+    nextMeeti,
+    pastMeeti,
     moment
   })
 }
