@@ -1,4 +1,5 @@
 import { OpenStreetMapProvider } from 'leaflet-geosearch'
+import * as Geocoding from 'esri-leaflet-geocoder'
 
 const lat = 15.861618
 const lng = -97.063522
@@ -24,40 +25,63 @@ const searchDirection = e => {
     // delete previous markers
     markers.clearLayers()
 
+    //Reverse geocoding - get address from lat-lng
+    const geocodeService = Geocoding.geocodeService({
+      apikey:
+        'AAPKf2cd41a3a82f40a0aec0ca4dc2c37430CQIXi2F35seg8WeZsNc8Sc8vNvf9VDmMXSIBf5Psave4PVn2GLbVaKsIzl--jaL3'
+    })
     const provider = new OpenStreetMapProvider()
 
     provider
       .search({ query: e.target.value || '' })
       .then(results => {
-        const { x: lng, y: lat, label } = results[0]
+        // console.log(results[0].bounds[0])
+        const { y: lat, x: lng, label } = results[0]
 
-        // show location in map
-        map.setView([lat, lng], 13)
+        // Reverse geocoding - get address from lat-lng
+        geocodeService
+          .reverse()
+          .latlng({ lat, lng })
+          .run((error, result) => {
+            if (error) {
+              console.log(error)
+            } else {
+              // show location in map
+              map.setView([lat, lng], 13)
+              // show pin in map
+              marker = new L.marker([lat, lng], {
+                draggable: true, // make the marker draggable
+                autoPan: true // auto pan to the location
+              })
+                .addTo(map)
+                .bindPopup(label) // bind a popup to the marker
+                .openPopup() // open the popup
+              // add marker to group
+              markers.addLayer(marker)
+              // detect dragend event
+              marker.on('dragend', e => {
+                const {
+                  _latlng: { lat, lng }
+                } = e.target
+                // update marker position
+                map.panTo([lat, lng])
 
-        // show pin in map
-        marker = new L.marker([lat, lng], {
-          draggable: true, // make the marker draggable
-          autoPan: true // auto pan to the location
-        })
-          .addTo(map)
-          .bindPopup(label) // bind a popup to the marker
-          .openPopup() // open the popup
-
-        // add marker to group
-        markers.addLayer(marker)
-
-        // detect dragend event
-        marker.on('dragend', e => {
-          const {
-            _latlng: { lat, lng }
-          } = e.target
-
-          // update marker position
-          map.panTo([lat, lng])
-        })
+                // Reverse geocoding - get address from lat-lng
+                geocodeService
+                  .reverse()
+                  .latlng({ lat, lng })
+                  .run((error, result) => {
+                    if (error) {
+                      console.log(error)
+                    } else {
+                      // update marker label
+                      marker.setPopupContent(result.address.LongLabel)
+                    }
+                  })
+              })
+            }
+          })
       })
       .catch(err => console.error(err))
   }, 1000)
 }
-
-// debounce search
