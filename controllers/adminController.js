@@ -1,3 +1,5 @@
+const moment = require('moment')
+
 const Group = require('../models/groups')
 const Meeti = require('../models/meeti')
 
@@ -10,7 +12,8 @@ const adminPanel = async (req, res) => {
   res.render('admin/index', {
     title: 'Admin Panel',
     groups,
-    meeti
+    meeti,
+    moment
   })
 }
 

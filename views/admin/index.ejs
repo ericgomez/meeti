@@ -15,7 +15,8 @@
       <% meeti.forEach(meet => { %> 
       <li>
         <div class="information-admin">
-          <p class="date"><%- meet.date %> </p>
+          <!-- < % moment.locale('es') % >  -->
+          <p class="date"><%- moment(`${meet.date} ${meet.time}`).format('LLLL') %> Hours</p>
           <h3><%- meet.title %></h3>
           <small><%- meet.interested.length %> Interested</small>
         </div>
