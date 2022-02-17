@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 const { v4: uuid } = require('uuid')
-const nanoid = require('nanoid')
+const { nanoid } = require('nanoid')
 const slug = require('slug')
 
 const db = require('../config/db')
