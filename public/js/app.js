@@ -46,6 +46,8 @@ const searchDirection = e => {
             if (error) {
               console.log(error)
             } else {
+              getLocation(result)
+
               // show location in map
               map.setView([lat, lng], 13)
               // show pin in map
@@ -74,6 +76,8 @@ const searchDirection = e => {
                     if (error) {
                       console.log(error)
                     } else {
+                      getLocation(result)
+
                       // update marker label
                       marker.setPopupContent(result.address.LongLabel)
                     }
@@ -84,4 +88,13 @@ const searchDirection = e => {
       })
       .catch(err => console.error(err))
   }, 1000)
+}
+
+const getLocation = result => {
+  document.getElementById('address').value = result.address.Address || ''
+  document.getElementById('city').value = result.address.City || ''
+  document.getElementById('state').value = result.address.Region || ''
+  document.getElementById('country').value = result.address.CountryCode || ''
+  document.getElementById('lat').value = result.latlng.lat || ''
+  document.getElementById('lng').value = result.latlng.lng || ''
 }
