@@ -2,6 +2,7 @@ const { Router } = require('express')
 
 const router = Router()
 
+const { sanitizeFieldsMeeti } = require('./../middlewares/sanitizeFields')
 const { home } = require('./../controllers/homeController')
 const {
   formSignup,
@@ -66,6 +67,6 @@ router.post('/delete-group/:groupId', isAuthenticatedUser, deleteGroup)
 
 // new meeti
 router.get('/new-meeti', isAuthenticatedUser, formNewMeeti)
-router.post('/new-meeti', isAuthenticatedUser, newMeeti)
+router.post('/new-meeti', isAuthenticatedUser, sanitizeFieldsMeeti, newMeeti)
 
 module.exports = router
