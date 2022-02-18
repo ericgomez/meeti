@@ -15,7 +15,8 @@ const {
   formEditProfile,
   editProfile,
   formChangePassword,
-  changePassword
+  changePassword,
+  formUploadImageProfile
 } = require('./../controllers/usersController')
 const {
   authenticateUser,
@@ -106,5 +107,8 @@ router.post(
 // password reset
 router.get('/change-password', isAuthenticatedUser, formChangePassword)
 router.post('/change-password', isAuthenticatedUser, changePassword)
+
+// image profile
+router.get('/image-profile', isAuthenticatedUser, formUploadImageProfile)
 
 module.exports = router

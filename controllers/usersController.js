@@ -165,5 +165,6 @@ module.exports = {
   formEditProfile,
   editProfile,
   formChangePassword,
-  changePassword
+  changePassword,
+  formUploadImageProfile
 }

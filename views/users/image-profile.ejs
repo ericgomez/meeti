@@ -1,0 +1,23 @@
+<main class="container container-forms no-padding">
+  <h1><%- title %> </h1>
+
+  <form class="default-form" method="post" enctype="multipart/form-data">
+    <legend>Upload your image to be displayed on your bio</legend>
+    
+    <div class="campo">
+      <label for="image">Image</label>
+      <input type="file" name="image">
+    </div>
+    <% if(user.image) { %> 
+      <div class="campo">
+        <label>Current Image</label>
+        <img src="/uploads/profiles/<%- user.image %>" alt="<%- user.name %>" width="400">
+    </div>
+    <% } else { %>
+      <p> Not Image </p>
+    <% } %>
+    <div class="campo send">
+      <input type="submit" class="btn btn-pink" value="Upload Image">
+    </div>
+  </form>
+</main>
