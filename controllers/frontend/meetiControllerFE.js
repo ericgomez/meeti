@@ -1,6 +1,6 @@
-const Meeti = require('../models/meeti')
-const Group = require('../models/groups')
-const User = require('../models/users')
+const Meeti = require('../../models/meeti')
+const Group = require('../../models/groups')
+const User = require('../../models/users')
 
 const getMeeti = async (req, res) => {
   const meeti = await Meeti.findOne({
@@ -17,6 +17,7 @@ const getMeeti = async (req, res) => {
   }
 
   res.render('frontend/meeti', {
+    title: meeti.title,
     meeti
   })
 }

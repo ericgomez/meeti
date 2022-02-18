@@ -606,6 +606,10 @@ trix-toolbar .trix-button--icon-strike {
   border: 1px solid #c7c7c7;
 }
 
+.comments textarea {
+  resize: none;
+}
+
 .comment {
   display: flex;
   margin-bottom: 2rem;
@@ -624,6 +628,11 @@ trix-toolbar .trix-button--icon-strike {
 }
 .comment .text p {
   margin: 0;
+}
+
+.text p span {
+  color: #068d9d;
+  font-weight: 700;
 }
 
 /** Sidebar **/
