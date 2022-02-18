@@ -1,1 +1,115 @@
-<h1><%- title %></h1>
+<div class="hero">
+  <h1>Find or create a group to share what you like the most</h1>
+  <a href="/signup" class="btn btn-yellow">Get Account</a>
+</div>
+
+<div class="searching-start">
+  <div class="container">
+    <h2>Find a group in your city</h2>
+    <form action="#">
+      <select name="category">
+        <option value="" disabled selected>Select Category</option>
+        <% categories.forEach(function(category) { %>
+          <option value="<%- category.id %>" >
+            <%- category.name %>
+          </option>
+        <% }) %>
+      </select>
+      <input type="text" name="name" placeholder="Name Meeti">
+      <input type="text" name="city" placeholder="City">
+      <input type="text" name="country" placeholder="Country">
+      <input type="submit" value="Search" class="btn btn-pink">
+    </form>
+  </div>
+</div>
+
+<div class="container">
+  <h2>Next Meeti's</h2>
+  <div class="grid colum-md-3 ">
+    <div class="card">
+      <img src="/img/imagen1.jpg">
+      <div class="card-text">
+        <p class="date">Thursday, December 30, 2022</p>
+        <a href="#">
+          <h3>Business Development and Acceleration</h3>
+        </a>
+        <div class="info-author">
+          <div class="image">
+          </div>
+          <div class="information">
+            <p>Organized by:</p>
+            <p class="author">Eric Gomez</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="/img/imagen2.jpg">
+      <div class="card-text">
+        <p class="date">Thursday, December 30, 2019</p>
+            <a href="#">
+              <h3>Business Development and Acceleration</h3>
+            </a>
+            <div class="info-author">
+              <div class="image">
+              </div>
+              <div class="information">
+                <p>Organized by:</p>
+                <p class="author">Eric Gomez</p>
+              </div>
+            </div>
+
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="/img/imagen3.jpg">
+      <div class="card-text">
+        <p class="date">Thursday, December 30, 2022</p>
+        <a href="#">
+          <h3>3 Types of Pizza</h3>
+        </a>
+        <div class="info-author">
+          <div class="image">
+          </div>
+          <div class="information">
+            <p>Organized by:</p>
+            <p class="author">Eric Gomez</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="bg-gris categories">
+  <h2>Find Groups by Category</h2>
+
+  <div class="container">
+    <ul class="list-categories  grid colum-2 colum-md-3">
+      <% categories.forEach(function(category) { %>
+        <li>
+          <a href="/category/<%- category.slug  %> ">
+            <img src="/img/categoria_<%- category.id %>.jpg">
+            <h3><%- category.name %></h3>
+          </a>
+        </li>
+      <% }) %>
+    </ul>
+  </div>
+</main>
+
+<div class="meeti-bg">
+  <div class="container meeti grid colum-md-2">
+    <section>
+      <h3>Create a group</h3>
+      <p>Share what you like or your passion with others, create your own group today at no cost</p>
+    </section>
+    <section>
+      <h3>Join a group</h3>
+      <p>Meet people with your same tastes and passions, join an existing group and receive notifications about next events</p>
+    </section>
+  </div>
+</div>
