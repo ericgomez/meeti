@@ -128,6 +128,35 @@ const formChangePassword = (req, res) => {
   })
 }
 
+const changePassword = async (req, res, next) => {
+  const user = await User.findByPk(req.user.id)
+
+  // check if password is correct
+  const isPasswordCorrect = user.validPassword(req.body.currentPassword)
+
+  if (!isPasswordCorrect) {
+    req.flash('error', 'Password is incorrect')
+    res.redirect('/change-password')
+
+    return next()
+  }
+
+  // hashing new password with method from user model
+  const hashPassword = user.hashPassword(req.body.newPassword)
+
+  // update password
+  await user.update({
+    password: hashPassword
+  })
+
+  // logout user by passport
+  req.logout()
+
+  // flash message and redirect to login
+  req.flash('success', 'Password changed successfully')
+  res.redirect('/login')
+}
+
 module.exports = {
   formSignup,
   signup,
@@ -135,5 +164,6 @@ module.exports = {
   confirmAccount,
   formEditProfile,
   editProfile,
-  formChangePassword
+  formChangePassword,
+  changePassword
 }

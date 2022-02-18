@@ -46,7 +46,7 @@ const User = db.define(
     hooks: {
       beforeCreate: user => {
         const salt = bcrypt.genSaltSync(10)
-        user.password = bcrypt.hashSync(user.password, salt)
+        user.password = User.prototype.hashPassword(user.password)
       }
     }
   }
@@ -55,6 +55,11 @@ const User = db.define(
 // Method to compare password
 User.prototype.validPassword = function (password) {
   return bcrypt.compareSync(password, this.password)
+}
+
+User.prototype.hashPassword = function (password) {
+  const salt = bcrypt.genSaltSync(10)
+  return bcrypt.hashSync(password, salt)
 }
 
 module.exports = User
