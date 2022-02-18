@@ -24,7 +24,7 @@ const newMeeti = async (req, res) => {
   meeti.location = point
 
   // not required because the model already has a default value 0
-  if (meeti.limit) {
+  if (!meeti.limit) {
     meeti.limit = 0
   }
 
@@ -55,8 +55,6 @@ const formEditMeeti = async (req, res, next) => {
     return next()
   }
 
-  console.log(meeti, groups)
-
   res.render('meeti/edit', {
     title: 'Edit Meeti',
     meeti,
@@ -64,8 +62,70 @@ const formEditMeeti = async (req, res, next) => {
   })
 }
 
+const editMeeti = async (req, res, next) => {
+  const meeti = await Meeti.findOne({
+    where: { id: req.params.id, userId: req.user.id }
+  })
+
+  if (!meeti) {
+    req.flash('error', 'Meeti not found')
+    res.redirect('/admin')
+    return next()
+  }
+
+  const {
+    title,
+    guest,
+    limit,
+    description,
+    date,
+    time,
+    address,
+    city,
+    state,
+    country,
+    lat,
+    lng,
+    groupId
+  } = req.body
+
+  meeti.title = title
+  meeti.guest = guest
+  meeti.limit = limit
+  meeti.description = description
+  meeti.date = date
+  meeti.time = time
+  meeti.address = address
+  meeti.city = city
+  meeti.state = state
+  meeti.country = country
+  meeti.groupId = groupId
+
+  const point = {
+    type: 'Point',
+    coordinates: [parseFloat(lng), parseFloat(lat)]
+  }
+
+  meeti.location = point
+
+  try {
+    await meeti.save()
+
+    req.flash('success', 'Meeti edited successfully')
+    res.redirect('/admin')
+  } catch (error) {
+    console.log(error)
+    // get only the errors message from Sequelize
+    const errorsSequelize = error.errors.map(err => err.message)
+
+    req.flash('error', errorsSequelize)
+    res.redirect('/edit-meeti')
+  }
+}
+
 module.exports = {
   formNewMeeti,
   newMeeti,
-  formEditMeeti
+  formEditMeeti,
+  editMeeti
 }

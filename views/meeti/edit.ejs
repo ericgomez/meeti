@@ -1,8 +1,8 @@
 <main class="container container-forms">
 	<h1>
-		<%- title %>
+		<%- title %> : <%- meeti.title %>
 	</h1>
-	<form class="default-form" action="/edit-meeti" method="post">
+	<form class="default-form" method="post">
 		<legend>About the Meeti</legend>
 		<div class="campo">
 			<label>Group</label>
@@ -83,7 +83,7 @@
 			<input type="hidden" id="lng" name="lng" readonly value="<%- meeti.location.coordinates[0] %>">
 		</div>
 		<div class="campo send">
-			<input type="submit" class="btn btn-pink" value="Create Meeti">
+			<input type="submit" class="btn btn-pink" value="Edit Meeti">
 		</div>
 	</form>
 </main>
