@@ -56,7 +56,7 @@ const formEditMeeti = async (req, res, next) => {
   }
 
   res.render('meeti/edit', {
-    title: 'Edit Meeti',
+    title: 'Edit Meeti : ${meeti.title}`,',
     meeti,
     groups
   })
@@ -123,9 +123,27 @@ const editMeeti = async (req, res, next) => {
   }
 }
 
+const formDeleteMeeti = async (req, res, next) => {
+  const meeti = await Meeti.findOne({
+    where: { id: req.params.id, userId: req.user.id }
+  })
+
+  if (!meeti) {
+    req.flash('error', 'Meeti not found')
+    res.redirect('/admin')
+    return next()
+  }
+
+  res.render('meeti/delete', {
+    title: `Delete Meeti : ${meeti.title}`,
+    meeti
+  })
+}
+
 module.exports = {
   formNewMeeti,
   newMeeti,
   formEditMeeti,
-  editMeeti
+  editMeeti,
+  formDeleteMeeti
 }

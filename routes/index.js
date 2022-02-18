@@ -31,7 +31,8 @@ const {
   formNewMeeti,
   newMeeti,
   formEditMeeti,
-  editMeeti
+  editMeeti,
+  formDeleteMeeti
 } = require('./../controllers/meetiController')
 
 router.get('/', home)
@@ -73,7 +74,10 @@ router.post('/delete-group/:groupId', isAuthenticatedUser, deleteGroup)
 // new meeti
 router.get('/new-meeti', isAuthenticatedUser, formNewMeeti)
 router.post('/new-meeti', isAuthenticatedUser, sanitizeFieldsMeeti, newMeeti)
+
 router.get('/edit-meeti/:id', isAuthenticatedUser, formEditMeeti)
 router.post('/edit-meeti/:id', isAuthenticatedUser, editMeeti)
+
+router.get('/delete-meeti/:id', isAuthenticatedUser, formDeleteMeeti)
 
 module.exports = router
