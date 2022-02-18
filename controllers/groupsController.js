@@ -3,10 +3,10 @@ const fs = require('fs')
 const Category = require('../models/categories')
 const Group = require('../models/groups')
 const { validateFieldsGroup } = require('../middlewares/validateFields')
-const multer = require('../middlewares/fileUpload')
+const multer = require('../middlewares/fileUploadGroup')
 
 // upload image
-const uploadImage = async (req, res, next) => {
+const uploadImageGroup = async (req, res, next) => {
   const upload = multer.single('image')
 
   upload(req, res, async error => {
@@ -243,7 +243,7 @@ const deleteGroup = async (req, res, next) => {
 module.exports = {
   formNewGroup,
   createGroup,
-  uploadImage,
+  uploadImageGroup,
   formEditGroup,
   editGroup,
   formEditImage,

@@ -11,12 +11,26 @@ const validateFieldsGroup = async req => {
   ]
 
   await Promise.all(rules.map(validation => validation.run(req)))
+}
 
-  // const errors = validationResult(req)
+const validateFieldsUser = async req => {
+  const rules = [
+    body('confirm-password')
+      .notEmpty()
+      .withMessage('Confirm password is required'),
+    body('confirm-password')
+      .equals(req.body.password)
+      .withMessage('Confirm password must be the same as password')
+  ]
 
-  // return errors
+  await Promise.all(rules.map(validation => validation.run(req)))
+
+  const errors = validationResult(req)
+
+  return errors
 }
 
 module.exports = {
-  validateFieldsGroup
+  validateFieldsGroup,
+  validateFieldsUser
 }

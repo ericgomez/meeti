@@ -1,7 +1,30 @@
-const { body, validationResult } = require('express-validator')
+const fs = require('fs')
 
 const User = require('../models/users')
 const sendEmail = require('../handlers/email')
+const multer = require('../middlewares/fileUploadUser')
+const { validateFieldsUser } = require('../middlewares/validateFields')
+
+const uploadImageUser = async (req, res, next) => {
+  const upload = multer.single('image')
+
+  upload(req, res, async error => {
+    if (error) {
+      if (error.code === 'LIMIT_FILE_SIZE') {
+        req.flash('error', 'The file size is too big')
+      } else if (error.hasOwnProperty('message')) {
+        // access the error message directly of new Error
+        req.flash('error', error.message)
+      } else {
+        req.flash('error', error.message)
+      }
+      // redirect to back
+      return res.redirect('back')
+    } else {
+      next()
+    }
+  })
+}
 
 const formSignup = (req, res) => {
   res.render('signup', {
@@ -10,18 +33,7 @@ const formSignup = (req, res) => {
 }
 
 const signup = async (req, res) => {
-  const rules = [
-    body('confirm-password')
-      .notEmpty()
-      .withMessage('Confirm password is required'),
-    body('confirm-password')
-      .equals(req.body.password)
-      .withMessage('Confirm password must be the same as password')
-  ]
-
-  await Promise.all(rules.map(validation => validation.run(req)))
-
-  const errorsExp = validationResult(req)
+  const errorsExp = await validateFieldsUser(req)
 
   try {
     // create new user in database
@@ -157,6 +169,60 @@ const changePassword = async (req, res, next) => {
   res.redirect('/login')
 }
 
+const formUploadImageProfile = async (req, res) => {
+  const user = await User.findByPk(req.user.id)
+
+  res.render('users/picture-profile', {
+    title: 'Upload Image Profile',
+    user
+  })
+}
+
+const uploadImageProfile = async (req, res) => {
+  const user = await User.findByPk(req.user.id)
+
+  if (!user) {
+    req.flash('error', 'You are not the owner of this user')
+    res.redirect('back')
+
+    return next()
+  }
+
+  // check if a previous image exists and a new image exists
+  if (req.file && user.image) {
+    const pathImage = `./public/uploads/profiles/${user.image}`
+
+    // delete the previous image asynchronously
+    // no required await because it is not a blocking operation
+    fs.unlink(pathImage, error => {
+      if (error) {
+        console.log(error)
+      }
+
+      return
+    })
+  }
+
+  // add only name of image
+  if (req.file) {
+    user.image = req.file.filename
+  }
+
+  try {
+    await user.save()
+
+    req.flash('success', `Image of ${user.name} was updated successfully`)
+    res.redirect('/admin')
+  } catch (error) {
+    console.log(error)
+    // get only the errors message from Sequelize
+    const errorsSequelize = error.errors.map(err => err.message)
+
+    req.flash('error', errorsSequelize)
+    res.redirect('/edit-image')
+  }
+}
+
 module.exports = {
   formSignup,
   signup,
@@ -166,5 +232,7 @@ module.exports = {
   editProfile,
   formChangePassword,
   changePassword,
-  formUploadImageProfile
+  formUploadImageProfile,
+  uploadImageUser,
+  uploadImageProfile
 }

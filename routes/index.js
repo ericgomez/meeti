@@ -16,7 +16,9 @@ const {
   editProfile,
   formChangePassword,
   changePassword,
-  formUploadImageProfile
+  formUploadImageProfile,
+  uploadImageUser,
+  uploadImageProfile
 } = require('./../controllers/usersController')
 const {
   authenticateUser,
@@ -25,7 +27,7 @@ const {
 const { adminPanel } = require('./../controllers/adminController')
 const {
   formNewGroup,
-  uploadImage,
+  uploadImageGroup,
   createGroup,
   formEditGroup,
   editGroup,
@@ -61,7 +63,7 @@ router.get('/admin', isAuthenticatedUser, adminPanel)
 
 // new group
 router.get('/new-group', isAuthenticatedUser, formNewGroup)
-router.post('/new-group', isAuthenticatedUser, uploadImage, createGroup)
+router.post('/new-group', isAuthenticatedUser, uploadImageGroup, createGroup)
 
 // edit group
 router.get('/edit-group/:groupId', isAuthenticatedUser, formEditGroup)
@@ -72,7 +74,7 @@ router.get('/image-group/:groupId', isAuthenticatedUser, formEditImage)
 router.post(
   '/image-group/:groupId',
   isAuthenticatedUser,
-  uploadImage,
+  uploadImageGroup,
   editImage
 )
 
@@ -109,6 +111,12 @@ router.get('/change-password', isAuthenticatedUser, formChangePassword)
 router.post('/change-password', isAuthenticatedUser, changePassword)
 
 // image profile
-router.get('/image-profile', isAuthenticatedUser, formUploadImageProfile)
+router.get('/picture-profile', isAuthenticatedUser, formUploadImageProfile)
+router.post(
+  '/picture-profile',
+  isAuthenticatedUser,
+  uploadImageUser,
+  uploadImageProfile
+)
 
 module.exports = router
