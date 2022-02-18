@@ -122,11 +122,18 @@ const editProfile = async (req, res) => {
   }
 }
 
+const formChangePassword = (req, res) => {
+  res.render('users/change-password', {
+    title: 'Change Password'
+  })
+}
+
 module.exports = {
   formSignup,
   signup,
   formLogin,
   confirmAccount,
   formEditProfile,
-  editProfile
+  editProfile,
+  formChangePassword
 }

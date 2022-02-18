@@ -13,7 +13,8 @@ const {
   formLogin,
   confirmAccount,
   formEditProfile,
-  editProfile
+  editProfile,
+  formChangePassword
 } = require('./../controllers/usersController')
 const {
   authenticateUser,
@@ -100,5 +101,8 @@ router.post(
   sanitizeFieldsProfile,
   editProfile
 )
+
+// password reset
+router.get('/change-password', isAuthenticatedUser, formChangePassword)
 
 module.exports = router
