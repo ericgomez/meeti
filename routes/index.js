@@ -2,14 +2,18 @@ const { Router } = require('express')
 
 const router = Router()
 
-const { sanitizeFieldsMeeti } = require('./../middlewares/sanitizeFields')
+const {
+  sanitizeFieldsMeeti,
+  sanitizeFieldsProfile
+} = require('./../middlewares/sanitizeFields')
 const { home } = require('./../controllers/homeController')
 const {
   formSignup,
   signup,
   formLogin,
   confirmAccount,
-  formEditProfile
+  formEditProfile,
+  editProfile
 } = require('./../controllers/usersController')
 const {
   authenticateUser,
@@ -78,12 +82,23 @@ router.get('/new-meeti', isAuthenticatedUser, formNewMeeti)
 router.post('/new-meeti', isAuthenticatedUser, sanitizeFieldsMeeti, newMeeti)
 
 router.get('/edit-meeti/:id', isAuthenticatedUser, formEditMeeti)
-router.post('/edit-meeti/:id', isAuthenticatedUser, editMeeti)
+router.post(
+  '/edit-meeti/:id',
+  isAuthenticatedUser,
+  sanitizeFieldsMeeti,
+  editMeeti
+)
 
 router.get('/delete-meeti/:id', isAuthenticatedUser, formDeleteMeeti)
 router.post('/delete-meeti/:id', isAuthenticatedUser, deleteMeeti)
 
 // profile
 router.get('/edit-profile', isAuthenticatedUser, formEditProfile)
+router.post(
+  '/edit-profile',
+  isAuthenticatedUser,
+  sanitizeFieldsProfile,
+  editProfile
+)
 
 module.exports = router

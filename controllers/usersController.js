@@ -104,10 +104,29 @@ const formEditProfile = async (req, res) => {
   })
 }
 
+const editProfile = async (req, res) => {
+  const user = await User.findByPk(req.user.id)
+
+  try {
+    await user.update(req.body)
+
+    req.flash('success', 'Profile updated successfully')
+    res.redirect('/edit-profile')
+  } catch (error) {
+    console.log(error)
+    req.flash(
+      'error',
+      error.errors.map(err => err.message)
+    )
+    res.redirect('/edit-profile')
+  }
+}
+
 module.exports = {
   formSignup,
   signup,
   formLogin,
   confirmAccount,
-  formEditProfile
+  formEditProfile,
+  editProfile
 }

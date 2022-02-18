@@ -42,6 +42,22 @@ const sanitizeFieldsMeeti = async (req, res, next) => {
   next()
 }
 
+const sanitizeFieldsProfile = async (req, res, next) => {
+  const rules = [
+    body('name')
+      .trim()
+      .escape(),
+    body('email')
+      .trim()
+      .escape()
+  ]
+
+  await Promise.all(rules.map(validation => validation.run(req)))
+
+  next()
+}
+
 module.exports = {
-  sanitizeFieldsMeeti
+  sanitizeFieldsMeeti,
+  sanitizeFieldsProfile
 }
