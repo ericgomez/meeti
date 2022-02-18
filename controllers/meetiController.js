@@ -55,6 +55,8 @@ const formEditMeeti = async (req, res, next) => {
     return next()
   }
 
+  console.log(meeti, groups)
+
   res.render('meeti/edit', {
     title: 'Edit Meeti',
     meeti,
