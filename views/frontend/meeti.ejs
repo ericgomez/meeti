@@ -1,26 +1,31 @@
 <div class="header-event">
   <div class="container">
     <div class="resume-event">
-      <h1>Event Name</h1>
+      <h1><%- meeti.title %></h1>
 
+      <!-- < %- JSON.stringify(meeti) % >  -->
       <div class="info-author">
         <div class="image">
-          <img src="" alt="">
+          <% if(meeti.user.image) { %> 
+            <img src="/uploads/profiles/<%- meeti.user.image %>" alt="<%- meeti.title %>">
+          <% } %>
         </div>
         <div class="information">
           <p>Organized by:</p>
           <p class="author">
-            <a href="">Eric</a>
+            <a href="/users/<%- meeti.user.id %>"><%- meeti.user.name %></a>
             Creator of:
-            <a href="">Node Mexico</a>
+            <a href="/groups/<%- meeti.group.id %>"><%- meeti.group.name %></a>
           </p>
         </div>
       </div>
     </div>
 
     <div class="question-assistance">
-      <p>Will you attend?</p>
-      <a href="#" class="btn btn-blue">Si</a>
+      <% if(user.id) { %> 
+        <p>Will you attend?</p>
+        <a href="#" class="btn btn-blue">Si</a>
+      <% } %> 
     </div>
   </div>
 </div>
@@ -29,14 +34,14 @@
   <div class="container">
     <div class="information-event">
       <div class="description">
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sed molestias placeat ex repudiandae, dolore ipsa
-          atque maxime sapiente sunt alias quisquam corrupti deserunt adipisci reprehenderit nemo minima recusandae
-          ducimus? Magni!</p>
+        <img src="/uploads/groups/<%- meeti.group.image %>" alt="<%- meeti.title %>">
+
+        <%- meeti.description %> 
       </div>
       <div class="assistants">
         <div class="title">
-          <h2>Assistants</h2>
-          <a href="#">See All</a>
+          <h3><%- meeti.interested.length %>  Assistants</h2>
+          <a href="/assistants/<%- meeti.slug %>">See All</a>
         </div>
       </div>
 
@@ -86,10 +91,10 @@
 
     <aside class="information">
       <div class="date">
-        <p>Friday, February 25, 2022 8:00 PM Hours</p>
+        <p><%- moment(`${meeti.date} ${meeti.time}`).format('LLLL') %> Hours</p>
       </div>
       <div class="location">
-        <p>Always Alive Avenue</p>
+        <p><%- meeti.address %>, <%- meeti.city %>, <%- meeti.state %>, <%- meeti.country %></p>
       </div>
     </aside>
 

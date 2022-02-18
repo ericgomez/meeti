@@ -1,3 +1,5 @@
+const moment = require('moment')
+
 const Meeti = require('../../models/meeti')
 const Group = require('../../models/groups')
 const User = require('../../models/users')
@@ -18,7 +20,8 @@ const getMeeti = async (req, res) => {
 
   res.render('frontend/meeti', {
     title: meeti.title,
-    meeti
+    meeti,
+    moment
   })
 }
 
