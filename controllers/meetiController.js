@@ -56,7 +56,7 @@ const formEditMeeti = async (req, res, next) => {
   }
 
   res.render('meeti/edit', {
-    title: 'Edit Meeti : ${meeti.title}`,',
+    title: `Edit Meeti : ${meeti.title}`,
     meeti,
     groups
   })

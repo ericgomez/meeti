@@ -95,9 +95,19 @@ const confirmAccount = async (req, res, next) => {
   res.redirect('/login')
 }
 
+const formEditProfile = async (req, res) => {
+  const user = await User.findByPk(req.user.id)
+
+  res.render('users/edit-profile', {
+    title: 'Edit Profile',
+    user
+  })
+}
+
 module.exports = {
   formSignup,
   signup,
   formLogin,
-  confirmAccount
+  confirmAccount,
+  formEditProfile
 }

@@ -34,6 +34,7 @@ const User = db.define(
         }
       }
     },
+    description: Sequelize.TEXT,
     status: {
       type: Sequelize.BOOLEAN,
       defaultValue: false

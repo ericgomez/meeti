@@ -8,7 +8,8 @@ const {
   formSignup,
   signup,
   formLogin,
-  confirmAccount
+  confirmAccount,
+  formEditProfile
 } = require('./../controllers/usersController')
 const {
   authenticateUser,
@@ -81,5 +82,8 @@ router.post('/edit-meeti/:id', isAuthenticatedUser, editMeeti)
 
 router.get('/delete-meeti/:id', isAuthenticatedUser, formDeleteMeeti)
 router.post('/delete-meeti/:id', isAuthenticatedUser, deleteMeeti)
+
+// profile
+router.get('/edit-profile', isAuthenticatedUser, formEditProfile)
 
 module.exports = router
