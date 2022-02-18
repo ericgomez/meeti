@@ -22,7 +22,8 @@ const {
 } = require('./../controllers/usersController')
 const {
   authenticateUser,
-  isAuthenticatedUser
+  isAuthenticatedUser,
+  logout
 } = require('./../controllers/authController')
 const { adminPanel } = require('./../controllers/adminController')
 const {
@@ -57,6 +58,9 @@ router.get('/confirm-account/:email', confirmAccount)
 // login
 router.get('/login', formLogin)
 router.post('/login', authenticateUser)
+
+// logout
+router.get('/logout', isAuthenticatedUser, logout)
 
 // administration panel
 router.get('/admin', isAuthenticatedUser, adminPanel)

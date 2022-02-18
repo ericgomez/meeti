@@ -17,7 +17,15 @@ const isAuthenticatedUser = (req, res, next) => {
   res.redirect('/login')
 }
 
+const logout = (req, res) => {
+  req.logout()
+  res.redirect('/login')
+
+  // next()
+}
+
 module.exports = {
   authenticateUser,
-  isAuthenticatedUser
+  isAuthenticatedUser,
+  logout
 }
