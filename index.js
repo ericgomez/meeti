@@ -45,12 +45,12 @@ app.use(passport.session())
 // enabling flash messages
 app.use(flash())
 
+// Middleware Local Variables
 // middleware (user logged, flash message, current date)
 app.use((req, res, next) => {
+  res.locals.user = { ...req.user } || null
   res.locals.messages = req.flash()
-
-  const date = new Date()
-  res.locals.year = date.getFullYear()
+  res.locals.year = new Date().getFullYear()
 
   next()
 })
