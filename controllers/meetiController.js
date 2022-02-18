@@ -140,10 +140,28 @@ const formDeleteMeeti = async (req, res, next) => {
   })
 }
 
+const deleteMeeti = async (req, res, next) => {
+  const meeti = await Meeti.findOne({
+    where: { id: req.params.id, userId: req.user.id }
+  })
+
+  if (!meeti) {
+    req.flash('error', 'Meeti not found')
+    res.redirect('/admin')
+    return next()
+  }
+
+  await meeti.destroy()
+
+  req.flash('success', 'Meeti deleted successfully')
+  res.redirect('/admin')
+}
+
 module.exports = {
   formNewMeeti,
   newMeeti,
   formEditMeeti,
   editMeeti,
-  formDeleteMeeti
+  formDeleteMeeti,
+  deleteMeeti
 }

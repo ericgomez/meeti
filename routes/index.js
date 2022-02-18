@@ -32,7 +32,8 @@ const {
   newMeeti,
   formEditMeeti,
   editMeeti,
-  formDeleteMeeti
+  formDeleteMeeti,
+  deleteMeeti
 } = require('./../controllers/meetiController')
 
 router.get('/', home)
@@ -79,5 +80,6 @@ router.get('/edit-meeti/:id', isAuthenticatedUser, formEditMeeti)
 router.post('/edit-meeti/:id', isAuthenticatedUser, editMeeti)
 
 router.get('/delete-meeti/:id', isAuthenticatedUser, formDeleteMeeti)
+router.post('/delete-meeti/:id', isAuthenticatedUser, deleteMeeti)
 
 module.exports = router
