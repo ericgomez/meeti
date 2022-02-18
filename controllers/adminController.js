@@ -12,7 +12,8 @@ const adminPanel = async (req, res) => {
       date: {
         [Op.gte]: moment().format('YYYY-MM-DD')
       }
-    }
+    },
+    order: [['date', 'ASC']] // ASC = ascendente, DESC = descendente
   })
   const pastMeetiPromise = Meeti.findAll({
     where: {
