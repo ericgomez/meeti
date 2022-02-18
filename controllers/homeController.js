@@ -2,6 +2,7 @@ const { Op } = require('sequelize')
 const moment = require('moment')
 
 const Category = require('../models/categories')
+const Meeti = require('../models/meeti')
 const User = require('../models/users')
 const Group = require('../models/groups')
 
@@ -37,7 +38,8 @@ const home = async (req, res) => {
   res.render('home', {
     title: 'Home',
     categories,
-    meetis
+    meetis,
+    moment
   })
 }
 

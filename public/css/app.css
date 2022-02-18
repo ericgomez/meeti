@@ -172,7 +172,12 @@ p {
   background-color: #e1e1e1;
   height: 50px;
   width: 50px;
+  overflow: hidden;
 }
+.info-author .image img {
+  height: 100%;
+}
+
 .info-author .author {
   font-weight: 700;
   margin-top: 0.5rem;

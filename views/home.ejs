@@ -26,61 +26,36 @@
 <div class="container">
   <h2>Next Meeti's</h2>
   <div class="grid colum-md-3 ">
-    <div class="card">
-      <img src="/img/imagen1.jpg">
-      <div class="card-text">
-        <p class="date">Thursday, December 30, 2022</p>
-        <a href="#">
-          <h3>Business Development and Acceleration</h3>
-        </a>
-        <div class="info-author">
-          <div class="image">
-          </div>
-          <div class="information">
-            <p>Organized by:</p>
-            <p class="author">Eric Gomez</p>
-          </div>
-        </div>
+    <% if (meetis.length) { %>
+      <% meetis.forEach(meeti => { %> 
 
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="/img/imagen2.jpg">
-      <div class="card-text">
-        <p class="date">Thursday, December 30, 2019</p>
-            <a href="#">
-              <h3>Business Development and Acceleration</h3>
+        <!-- < %- JSON.stringify(meeti) % >  -->
+        <div class="card">
+          <img src="/uploads/groups/<%- meeti.group.image %>">
+          <div class="card-text">
+            <p class="date"><%- moment(`${meeti.date} ${meeti.time}`).format('LLLL') %> </p>
+            <a href="/meeti/<%- meeti.slug %>">
+              <h3><%- meeti.title %></h3>
             </a>
             <div class="info-author">
-              <div class="image">
-              </div>
+              <% if (meeti.user.image) { %>
+                <div class="image">
+                  <img src="/uploads/profiles/<%- meeti.user.image %>">
+                </div>
+              <% } else { %>
+                <div class="image">
+                </div>
+              <% } %>
               <div class="information">
                 <p>Organized by:</p>
-                <p class="author">Eric Gomez</p>
+                <p class="author"><%- meeti.user.name %></p>
               </div>
             </div>
 
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="/img/imagen3.jpg">
-      <div class="card-text">
-        <p class="date">Thursday, December 30, 2022</p>
-        <a href="#">
-          <h3>3 Types of Pizza</h3>
-        </a>
-        <div class="info-author">
-          <div class="image">
-          </div>
-          <div class="information">
-            <p>Organized by:</p>
-            <p class="author">Eric Gomez</p>
           </div>
         </div>
-      </div>
-    </div>
+      <% }) %>
+    <% } %>
   </div>
 </div>
 
