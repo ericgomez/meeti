@@ -43,7 +43,27 @@ const newMeeti = async (req, res) => {
   }
 }
 
+const formEditMeeti = async (req, res, next) => {
+  const meetiPromise = Meeti.findByPk(req.params.id)
+  const groupPromise = Group.findAll({ where: { userId: req.user.id } })
+
+  const [meeti, groups] = await Promise.all([meetiPromise, groupPromise])
+
+  if (!meeti || !groups) {
+    req.flash('error', 'Meeti not found')
+    res.redirect('/admin')
+    return next()
+  }
+
+  res.render('meeti/edit', {
+    title: 'Edit Meeti',
+    meeti,
+    groups
+  })
+}
+
 module.exports = {
   formNewMeeti,
-  newMeeti
+  newMeeti,
+  formEditMeeti
 }
