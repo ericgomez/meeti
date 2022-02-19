@@ -46,12 +46,18 @@ const {
   formDeleteMeeti,
   deleteMeeti
 } = require('./../controllers/meetiController')
-const { getMeeti } = require('./../controllers/frontend/meetiControllerFE')
+const {
+  getMeeti,
+  confirmAssistance
+} = require('./../controllers/frontend/meetiControllerFE')
 
 router.get('/', home)
 
 // Frontend meeti
 router.get('/meeti/:slug', getMeeti)
+
+// confirm assistance to meeti
+router.post('/confirm-assistance/:slug', confirmAssistance)
 
 router.get('/signup', formSignup)
 router.post('/signup', signup)

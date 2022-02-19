@@ -25,4 +25,8 @@ const getMeeti = async (req, res) => {
   })
 }
 
-module.exports = { getMeeti }
+const confirmAssistance = async (req, res) => {
+  console.log('confirmAssistance')
+}
+
+module.exports = { getMeeti, confirmAssistance }
