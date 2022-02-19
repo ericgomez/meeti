@@ -1,3 +1,4 @@
+const { fn, col } = require('sequelize')
 const moment = require('moment')
 
 const Meeti = require('../../models/meeti')
@@ -26,7 +27,16 @@ const getMeeti = async (req, res) => {
 }
 
 const confirmAssistance = async (req, res) => {
-  console.log('confirmAssistance')
+  Meeti.update(
+    {
+      interested: fn('array_append', col('interested'), req.user.id)
+    },
+    {
+      where: { slug: req.params.slug }
+    }
+  )
+
+  res.send('ok')
 }
 
 module.exports = { getMeeti, confirmAssistance }
