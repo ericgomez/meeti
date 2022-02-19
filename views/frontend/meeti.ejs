@@ -96,6 +96,13 @@
       <div class="location">
         <p><%- meeti.address %>, <%- meeti.city %>, <%- meeti.state %>, <%- meeti.country %></p>
       </div>
+
+      <!-- location map -->
+      <input type="hidden" id="lat" value="<%- meeti.location.coordinates[1] %>" readonly>
+			<input type="hidden" id="lng" value="<%- meeti.location.coordinates[0] %>" readonly>
+      <input type="hidden" id="address" value="<%- meeti.address %>" readonly>
+      <div id="location-meeti"></div>
+
     </aside>
 
   </div>

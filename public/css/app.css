@@ -337,6 +337,11 @@ main.categories {
   height: 100%;
 }
 
+[id='location-meeti'] {
+  width: 80%;
+  height: 300px;
+}
+
 /** Footer **/
 .site-footer {
   padding: 1rem 0 2rem 0;
