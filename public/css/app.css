@@ -610,13 +610,33 @@ trix-toolbar .trix-button--icon-strike {
 }
 .list-assistants {
   display: flex;
-  justify-content: space-between;
+  flex: 0 0 calc(20% - 2rem);
+  flex-direction: column;
+  margin: 0 20px;
 }
 .list-assistants li {
-  flex: 0 0 calc(33.3% - 1rem);
-  height: 200px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   background-color: white;
   border: 1px solid #c7c7c7;
+}
+
+.list-assistants .image {
+  border-radius: 50%;
+  background-color: #e1e1e1;
+  height: 50px;
+  width: 50px;
+  overflow: hidden;
+  margin: 20px;
+}
+
+.list-assistants .text {
+  flex: 1;
+  padding: 30px 10px;
+  text-align: left;
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.5rem;
 }
 
 .comments textarea {
