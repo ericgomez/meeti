@@ -51,6 +51,7 @@ const {
   confirmAssistance,
   showAssistants
 } = require('./../controllers/frontend/meetiControllerFE')
+const { getUser } = require('./../controllers/frontend/usersControllerFE')
 
 router.get('/', home)
 
@@ -62,6 +63,9 @@ router.post('/confirm-assistance/:slug', confirmAssistance)
 
 // show assistants to meeti
 router.get('/assistants/:slug', showAssistants)
+
+// show user profile in the frontend
+router.get('/user/:id', getUser)
 
 router.get('/signup', formSignup)
 router.post('/signup', signup)
