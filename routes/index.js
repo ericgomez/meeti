@@ -48,7 +48,8 @@ const {
 } = require('./../controllers/meetiController')
 const {
   getMeeti,
-  confirmAssistance
+  confirmAssistance,
+  showAssistants
 } = require('./../controllers/frontend/meetiControllerFE')
 
 router.get('/', home)
@@ -58,6 +59,9 @@ router.get('/meeti/:slug', getMeeti)
 
 // confirm assistance to meeti
 router.post('/confirm-assistance/:slug', confirmAssistance)
+
+// show assistants to meeti
+router.get('/assistants/:slug', showAssistants)
 
 router.get('/signup', formSignup)
 router.post('/signup', signup)

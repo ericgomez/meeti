@@ -54,4 +54,28 @@ const confirmAssistance = async (req, res) => {
   }
 }
 
-module.exports = { getMeeti, confirmAssistance }
+const showAssistants = async (req, res) => {
+  // get id of interested in the meeti
+  const { interested } = await Meeti.findOne({
+    where: { slug: req.params.slug },
+    attributes: ['interested']
+  })
+
+  if (!interested) {
+    return res.redirect('back')
+  }
+
+  const assistants = await User.findAll({
+    attributes: ['name', 'image'],
+    where: {
+      id: interested
+    }
+  })
+
+  res.render('frontend/assistants', {
+    title: 'Assistants',
+    assistants
+  })
+}
+
+module.exports = { getMeeti, confirmAssistance, showAssistants }
