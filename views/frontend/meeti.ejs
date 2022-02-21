@@ -23,9 +23,9 @@
 
     <div class="question-assistance">
       <% if(user.id) { %> 
-        <form action="/confirm-assistance/<% meeti.slug %>" id="confirm-assistance">
+        <form action="/confirm-assistance/<%- meeti.slug %>" id="confirm-assistance">
           <p>Will you attend?</p>
-          <input type="submit" class="btn btn-blue" value="Si">
+          <input type="submit" class="btn btn-blue" value="Yes">
         </form>
       <% } else { %> 
         <p>Login to confirm your assistance</p>

@@ -27,16 +27,31 @@ const getMeeti = async (req, res) => {
 }
 
 const confirmAssistance = async (req, res) => {
-  Meeti.update(
-    {
-      interested: fn('array_append', col('interested'), req.user.id)
-    },
-    {
-      where: { slug: req.params.slug }
-    }
-  )
+  const { action } = req.body
 
-  res.send('ok')
+  if (action === 'confirm') {
+    Meeti.update(
+      {
+        interested: fn('array_append', col('interested'), req.user.id)
+      },
+      {
+        where: { slug: req.params.slug }
+      }
+    )
+
+    res.send('Assistance confirmed')
+  } else {
+    Meeti.update(
+      {
+        interested: fn('array_remove', col('interested'), req.user.id)
+      },
+      {
+        where: { slug: req.params.slug }
+      }
+    )
+
+    res.send('Assistance canceled')
+  }
 }
 
 module.exports = { getMeeti, confirmAssistance }
