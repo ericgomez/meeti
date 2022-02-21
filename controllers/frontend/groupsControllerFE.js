@@ -34,12 +34,15 @@ const showCategory = async (req, res, next) => {
   })
 
   const meetis = await Meeti.findAll({
+    order: [
+      ['date', 'ASC'],
+      ['time', 'ASC']
+    ],
     include: [
       {
         model: Group,
         where: { categoryId: category.id }
       },
-
       {
         model: User
       }
