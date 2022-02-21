@@ -2,6 +2,8 @@ const moment = require('moment')
 
 const Group = require('../../models/groups')
 const Meeti = require('../../models/meeti')
+const Category = require('../../models/categories')
+const User = require('../../models/users')
 
 const getGroup = async (req, res, next) => {
   const groupPromise = Group.findOne({ where: { id: req.params.id } })
@@ -25,4 +27,30 @@ const getGroup = async (req, res, next) => {
   })
 }
 
-module.exports = { getGroup }
+const showCategory = async (req, res, next) => {
+  const category = await Category.findOne({
+    attributes: ['id', 'name'],
+    where: { slug: req.params.category }
+  })
+
+  const meetis = await Meeti.findAll({
+    include: [
+      {
+        model: Group,
+        where: { categoryId: category.id }
+      },
+
+      {
+        model: User
+      }
+    ]
+  })
+
+  res.render('frontend/groups/category', {
+    title: `Groups by category : ${category.name}`,
+    meetis,
+    moment
+  })
+}
+
+module.exports = { getGroup, showCategory }

@@ -52,7 +52,10 @@ const {
   showAssistants
 } = require('./../controllers/frontend/meetiControllerFE')
 const { getUser } = require('./../controllers/frontend/usersControllerFE')
-const { getGroup } = require('./../controllers/frontend/groupsControllerFE')
+const {
+  getGroup,
+  showCategory
+} = require('./../controllers/frontend/groupsControllerFE')
 
 router.get('/', home)
 
@@ -70,6 +73,9 @@ router.get('/users/:id', getUser)
 
 // show group profile in the frontend
 router.get('/groups/:id', getGroup)
+
+// show meeti's by category in the frontend
+router.get('/category/:category', showCategory)
 
 router.get('/signup', formSignup)
 router.post('/signup', signup)
