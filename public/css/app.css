@@ -158,6 +158,26 @@ p {
   margin: 0;
 }
 
+.information-user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.information-user .image {
+  width: 60%;
+  height: 100%;
+}
+
+.information-user .text {
+  width: 100%;
+  font-size: 1.8rem;
+  margin: 0.6rem 0;
+  padding: 0.5rem 1rem;
+  font-family: 'Raleway', sans-serif;
+  color: #484349;
+}
+
 .info-author {
   display: flex;
   justify-content: space-between;
@@ -270,6 +290,27 @@ form textarea {
   }
   .searching-start input {
     flex: 1;
+  }
+
+  .information-user {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+  }
+
+  .information-user .image {
+    width: 40%;
+    height: 100%;
+    margin: 10px 10px;
+  }
+
+  .information-user .text {
+    width: 70%;
+    font-size: 1.8rem;
+    margin: 0.6rem 0;
+    padding: 0.5rem 0;
+    font-family: 'Raleway', sans-serif;
+    color: #484349;
   }
 }
 
@@ -666,6 +707,97 @@ trix-toolbar .trix-button--icon-strike {
 .text p span {
   color: #068d9d;
   font-weight: 700;
+}
+
+/** groups **/
+.list-groups {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 calc(20% - 2rem);
+  flex-wrap: nowrap;
+  width: 100%;
+}
+
+.list-groups li {
+  display: flex;
+  flex-direction: column;
+  height: 250px;
+  margin: 0 0.8rem;
+  margin-bottom: 1.5rem;
+  width: 95%;
+}
+
+.list-groups li:first-child,
+.list-groups li:nth-child(odd + 1) {
+  margin-left: 0;
+}
+
+.list-groups .image {
+  background-color: #e1e1e1;
+  height: 85%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.list-groups .text {
+  flex: 1;
+  text-align: left;
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.5rem;
+}
+
+.list-groups li .text {
+  display: inherit;
+  height: 20%;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  /** groups **/
+  .list-groups {
+    display: flex;
+    flex: 0 0 calc(20% - 2rem);
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .list-groups li {
+    display: flex;
+    flex-direction: column;
+    height: 250px;
+    margin: 0 0.8rem;
+    margin-bottom: 1.5rem;
+    width: calc(33.33% - 2rem);
+  }
+
+  .list-groups li:first-child,
+  .list-groups li:nth-child(odd + 1) {
+    margin-left: 0;
+  }
+
+  .list-groups .image {
+    background-color: #e1e1e1;
+    height: 85%;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .list-groups .text {
+    flex: 1;
+    text-align: left;
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.5rem;
+  }
+
+  .list-groups li .text {
+    display: inherit;
+    height: 20%;
+    align-items: center;
+  }
+
+  li .text h3 {
+    font-size: 1.5rem;
+  }
 }
 
 /** Sidebar **/

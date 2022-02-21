@@ -1,0 +1,40 @@
+<main class="assistants container">
+  <h1><%- title %></h1>
+  <div class="information-user">
+    <div class="image">
+      <% if(user.image) { %>
+        <img src="/uploads/profiles/<%- user.image %>" alt="<%- user.name %>">
+      <% } %>
+    </div>
+
+    <div class="text">
+      <%- user.description %>
+    </div>
+  </div>
+
+  <div class="groups-user">
+    <% if(groups.length) { %>
+      <h2>Groups by: <%- user.name %></h2>
+
+      <ul class="list-groups">
+        <% groups.forEach(group => { %>
+          <li>
+            <div class="image"> 
+              <% if(group.image) { %>
+                <img src="/uploads/groups/<%- group.image %>" alt="<%- group.name %>">
+              <% } else { %>
+                <img src="/img/logo.png" alt="logo">
+              <% } %>
+            </div>
+
+            <div class="text">
+              <a href="/groups/<%- group.id %>">
+                <h3><%- group.name %></h3>
+              </a>
+            </div>
+          </li>
+        <% }) %>
+      </ul>
+    <% } %>
+  </div>
+</main>

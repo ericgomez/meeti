@@ -3,13 +3,13 @@ const Group = require('../../models/groups')
 
 const getUser = async (req, res, next) => {
   const userPromise = User.findOne({
-    where: { id: req.params.id },
-    attributes: ['id', 'name', 'email', 'image']
+    attributes: ['id', 'name', 'description', 'image'],
+    where: { id: req.params.id }
   })
 
   const groupsPromise = Group.findAll({
-    where: { userId: req.params.id },
-    attributes: ['id', 'name', 'slug']
+    attributes: ['id', 'name', 'description', 'image'],
+    where: { userId: req.params.id }
   })
 
   const [user, groups] = await Promise.all([userPromise, groupsPromise])

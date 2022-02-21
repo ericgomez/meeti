@@ -65,7 +65,7 @@ router.post('/confirm-assistance/:slug', confirmAssistance)
 router.get('/assistants/:slug', showAssistants)
 
 // show user profile in the frontend
-router.get('/user/:id', getUser)
+router.get('/users/:id', getUser)
 
 router.get('/signup', formSignup)
 router.post('/signup', signup)
