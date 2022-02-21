@@ -25,7 +25,12 @@
       <% if(user.id) { %> 
         <form action="/confirm-assistance/<%- meeti.slug %>" id="confirm-assistance">
           <p>Will you attend?</p>
-          <input type="submit" class="btn btn-blue" value="Yes">
+          <%- (meeti.interested.includes(user.id)) 
+            ? '<input type="submit" class="btn btn-red" value="Cancel">' 
+            : '<input type="submit" class="btn btn-blue" value="Yes">'
+          %>
+
+          <div id="message" class="message"></div>
         </form>
       <% } else { %> 
         <p>Login to confirm your assistance</p>

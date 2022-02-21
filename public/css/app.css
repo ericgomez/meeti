@@ -557,6 +557,14 @@ trix-toolbar .trix-button--icon-strike {
   background-color: #f2f2f2;
   padding: 5rem 0;
 }
+
+.message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
 @media (min-width: 768px) {
   .content-event .container {
     display: flex;

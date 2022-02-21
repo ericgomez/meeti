@@ -13,6 +13,7 @@ const confirmAssistance = e => {
 
   const form = e.target
   const btn = e.target[0]
+  const message = document.getElementById('message')
 
   axios
     .post(form.action, {
@@ -28,5 +29,16 @@ const confirmAssistance = e => {
         btn.classList.remove('btn-red')
         btn.classList.add('btn-blue')
       }
+
+      // remove the message previously if exists
+      while (message.firstChild) {
+        message.removeChild(message.firstChild)
+      }
+
+      //show message
+      message.appendChild(document.createTextNode(res.data))
+    })
+    .catch(err => {
+      console.log(err)
     })
 }
