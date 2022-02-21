@@ -52,6 +52,7 @@ const {
   showAssistants
 } = require('./../controllers/frontend/meetiControllerFE')
 const { getUser } = require('./../controllers/frontend/usersControllerFE')
+const { getGroup } = require('./../controllers/frontend/groupsControllerFE')
 
 router.get('/', home)
 
@@ -66,6 +67,9 @@ router.get('/assistants/:slug', showAssistants)
 
 // show user profile in the frontend
 router.get('/users/:id', getUser)
+
+// show group profile in the frontend
+router.get('/groups/:id', getGroup)
 
 router.get('/signup', formSignup)
 router.post('/signup', signup)

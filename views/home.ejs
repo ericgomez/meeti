@@ -31,7 +31,11 @@
 
         <!-- < %- JSON.stringify(meeti) % >  -->
         <div class="card">
-          <img src="/uploads/groups/<%- meeti.group.image %>">
+          <% if(meeti.group.image) { %> 
+            <img src="/uploads/groups/<%- meeti.group.image %>" alt="<%- meeti.title %>">
+          <% } else { %>
+            <img src="/img/logo.png" alt="meeti-default">
+          <% } %>
           <div class="card-text">
             <p class="date"><%- moment(`${meeti.date} ${meeti.time}`).format('LLLL') %> </p>
             <a href="/meeti/<%- meeti.slug %>">
