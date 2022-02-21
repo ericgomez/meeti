@@ -1,0 +1,39 @@
+<div class="container">
+  <h1><%- title  %></h1>
+  <div class="information-group">
+    <div class="image">
+      <% if(group.image) { %>
+        <img src="/uploads/groups/<%- group.image %>" alt="<%- group.name %>">
+      <% } else { %>
+        <img src="/img/logo.png" alt="<%- group.name %>"> 
+      <% } %> 
+    </div>
+
+    <div class="text">
+      <%- group.description %> 
+
+      <% if(group.url) { %> 
+        <a href="<%- group.url %>" target="_blank" class="url">
+          Visit our website
+        </a>
+      <% } %> 
+
+      <% if(meetis.length) { %> 
+        <h2>Next Meeti's</h2>
+        <ul class="list-meetis">
+          <% meetis.forEach(meeti => { %>
+            <li>
+              <div class="text">
+                <a href="/meeti/<%- meeti.slug %>">
+                  <h3><%- meeti.title %></h3>
+
+                  <p><%- moment(`${meeti.date} ${meeti.time}`).format('LLLL') %> Hours</p>
+                </a>
+              </div>
+            </li>
+          <% }) %>
+        </ul>
+      <% } %> 
+    </div>
+  </div>
+</div>

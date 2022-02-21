@@ -4,8 +4,8 @@ const Group = require('../../models/groups')
 const Meeti = require('../../models/meeti')
 
 const getGroup = async (req, res, next) => {
-  const groupPromise = Group.findById({ where: { id: req.params.id } })
-  const meetisPromise = Meeti.find({
+  const groupPromise = Group.findOne({ where: { id: req.params.id } })
+  const meetisPromise = Meeti.findAll({
     where: { groupId: req.params.id },
     order: [['date', 'ASC']]
   })
@@ -18,7 +18,7 @@ const getGroup = async (req, res, next) => {
   }
 
   res.render('frontend/groups/show', {
-    title: group.name,
+    title: `Group info : ${group.name}`,
     group,
     meetis,
     moment

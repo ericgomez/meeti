@@ -178,6 +178,29 @@ p {
   color: #484349;
 }
 
+.information-group {
+  display: flex;
+}
+
+.information-group .image {
+  width: 60%;
+  height: 100%;
+}
+
+.information-group .text {
+  width: 100%;
+  font-size: 1rem;
+  margin: 0.6rem 0;
+  padding: 0.5rem 1rem;
+  font-family: 'Raleway', sans-serif;
+  color: #484349;
+}
+
+.information-group .text .url {
+  display: block;
+  margin: 0.6rem 0;
+}
+
 .info-author {
   display: flex;
   justify-content: space-between;
