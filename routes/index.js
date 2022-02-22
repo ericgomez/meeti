@@ -61,6 +61,9 @@ const {
   addComment,
   deleteComment
 } = require('./../controllers/frontend/commentsControllerFE')
+const {
+  searchResults
+} = require('./../controllers/frontend/searchControllerFE')
 
 router.get('/', home)
 
@@ -87,6 +90,9 @@ router.get('/groups/:id', getGroup)
 
 // show meeti's by category in the frontend
 router.get('/category/:category', showCategory)
+
+// Search in the frontend
+router.get('/search', searchResults)
 
 router.get('/signup', formSignup)
 router.post('/signup', signup)

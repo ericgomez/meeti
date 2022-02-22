@@ -6,18 +6,26 @@
 <div class="searching-start">
   <div class="container">
     <h2>Find a group in your city</h2>
-    <form action="#">
+    <form action="/search" method="get">
       <select name="category">
-        <option value="" disabled selected>Select Category</option>
+        <option value="" selected>Select Category</option>
         <% categories.forEach(function(category) { %>
           <option value="<%- category.id %>" >
             <%- category.name %>
           </option>
         <% }) %>
       </select>
-      <input type="text" name="name" placeholder="Name Meeti">
+      <input type="text" name="title" placeholder="Title Meeti">
       <input type="text" name="city" placeholder="City">
-      <input type="text" name="country" placeholder="Country">
+      <select name="country">
+        <option value="" selected>All</option>
+        <option value="MEX">Mexico</option>
+        <option value="COL">Colombia</option>
+        <option value="ARG">Argentina</option>
+        <option value="ESP">Spain</option>
+        <option value="USA">United States</option>
+        <option value="PER">Peru</option>
+    </select>
       <input type="submit" value="Search" class="btn btn-pink">
     </form>
   </div>
