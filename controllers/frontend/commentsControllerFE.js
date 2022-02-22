@@ -2,12 +2,12 @@ const Comment = require('../../models/comments')
 
 const addComment = async (req, res, next) => {
   const { id } = req.params
-  const { comment } = req.body
+  const { text } = req.body
   const { user } = req
 
   try {
     await Comment.create({
-      comment,
+      text,
       meetiId: id,
       userId: user.id
     })

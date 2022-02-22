@@ -13,7 +13,7 @@ const Comment = db.define(
       primaryKey: true,
       defaultValue: () => uuid()
     },
-    comment: {
+    text: {
       type: Sequelize.TEXT,
       allowNull: false,
       validate: {

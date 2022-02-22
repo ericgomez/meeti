@@ -44,7 +44,7 @@ const sanitizeFieldsMeeti = async (req, res, next) => {
 
 const sanitizeFieldsComment = async (req, res, next) => {
   const rules = [
-    body('comment')
+    body('text')
       .trim()
       .escape()
   ]

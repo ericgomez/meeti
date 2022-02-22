@@ -4,6 +4,7 @@ const moment = require('moment')
 const Meeti = require('../../models/meeti')
 const Group = require('../../models/groups')
 const User = require('../../models/users')
+const Comment = require('../../models/comments')
 
 const getMeeti = async (req, res) => {
   const meeti = await Meeti.findOne({
@@ -19,9 +20,15 @@ const getMeeti = async (req, res) => {
     return res.redirect('/')
   }
 
+  const comments = await Comment.findAll({
+    where: { meetiId: meeti.id },
+    include: [{ model: User, attributes: ['id', 'name', 'image'] }]
+  })
+
   res.render('frontend/meeti', {
     title: meeti.title,
     meeti,
+    comments,
     moment
   })
 }

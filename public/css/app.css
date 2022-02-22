@@ -717,8 +717,15 @@ trix-toolbar .trix-button--icon-strike {
   background-color: #333;
   border-radius: 50%;
   margin-right: 2rem;
+  overflow: hidden;
 }
+
+.comment .image img {
+  height: 100%;
+}
+
 .comment .text {
+  flex: 1;
   padding: 2rem;
   border: 1px solid #c7c7c7;
   background-color: white;
