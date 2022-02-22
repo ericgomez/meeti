@@ -18,6 +18,11 @@ const addComment = async (req, res, next) => {
   }
 }
 
+const deleteComment = async (req, res, next) => {
+  res.send('delete comment')
+}
+
 module.exports = {
-  addComment
+  addComment,
+  deleteComment
 }

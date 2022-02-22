@@ -77,7 +77,11 @@
                   </span>
                 </p>
 
-                <input type="button" value="Delete" class="btn btn-blue">           
+                <% if(comment.userId === user.id) { %>
+                  <form action="/delete-comment/<%- comment.id %>" method="post" class="delete-comment">
+                    <input type="submit" value="Delete" class="btn btn-blue">  
+                  </form>
+                <% } %>      
               </div>
             </div>
           <% }) %>

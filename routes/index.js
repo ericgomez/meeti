@@ -57,7 +57,10 @@ const {
   getGroup,
   showCategory
 } = require('./../controllers/frontend/groupsControllerFE')
-const { addComment } = require('./../controllers/frontend/commentsControllerFE')
+const {
+  addComment,
+  deleteComment
+} = require('./../controllers/frontend/commentsControllerFE')
 
 router.get('/', home)
 
@@ -72,6 +75,9 @@ router.get('/assistants/:slug', showAssistants)
 
 // add comments to meeti
 router.post('/meeti/:id', sanitizeFieldsComment, addComment)
+
+// delete comments to meeti
+router.post('/delete-comment/:id', deleteComment)
 
 // show user profile in the frontend
 router.get('/users/:id', getUser)

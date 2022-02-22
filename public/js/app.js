@@ -2,6 +2,7 @@ import { OpenStreetMapProvider } from 'leaflet-geosearch'
 import * as Geocoding from 'esri-leaflet-geocoder'
 
 import './assistance'
+import './comment'
 
 //Reverse geocoding - get address from lat-lng
 const geocodeService = Geocoding.geocodeService({
