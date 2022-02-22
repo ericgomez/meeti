@@ -1,4 +1,4 @@
-const { fn, col } = require('sequelize')
+const { Op, fn, col, literal, where } = require('sequelize')
 const moment = require('moment')
 
 const Meeti = require('../../models/meeti')
@@ -20,9 +20,28 @@ const getMeeti = async (req, res) => {
     return res.redirect('/')
   }
 
+  // get meetis near to the current meeti
+  const location = literal(
+    `ST_GeomFromText('POINT(${meeti.location.coordinates[0]} ${meeti.location.coordinates[1]})')`
+  )
+
+  //ST_Distance_Sphere returns the distance in meters
+  const distance = fn('ST_Distance_Sphere', col('location'), location)
+
   const comments = await Comment.findAll({
     where: { meetiId: meeti.id },
     include: [{ model: User, attributes: ['id', 'name', 'image'] }]
+  })
+
+  // found meetis near to the current meeti
+  const meetisNear = await Meeti.findAll({
+    where: where(distance, { [Op.lte]: 2000 }), // 2000 meters
+    include: [
+      { model: Group },
+      { model: User, attributes: ['id', 'name', 'image'] }
+    ],
+    order: [[distance, 'ASC']],
+    limit: 3
   })
 
   res.render('frontend/meeti', {
