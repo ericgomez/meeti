@@ -78,8 +78,8 @@
                 </p>
 
                 <% if(comment.userId === user.id) { %>
-                  <form action="/delete-comment/<%- comment.id %>" method="post" class="delete-comment">
-                    <input type="submit" value="Delete" class="btn btn-blue">  
+                  <form action="/delete-comment" method="post" class="delete-comment">
+                    <input type="submit" value="Delete" class="btn btn-blue" data-id="<%- comment.id %>">  
                   </form>
                 <% } %>      
               </div>

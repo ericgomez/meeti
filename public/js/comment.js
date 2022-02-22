@@ -15,13 +15,30 @@ const deleteComment = e => {
   e.preventDefault()
 
   const form = e.target
+  const commentId = form[0].getAttribute('data-id')
 
-  axios
-    .post(form.action)
-    .then(res => {
-      console.log(res)
-    })
-    .catch(err => {
-      console.log(err)
-    })
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then(result => {
+    if (result.isConfirmed) {
+      axios
+        .post(form.action, {
+          commentId
+        })
+        .then(res => {
+          console.log(res)
+
+          Swal.fire('Deleted!', 'Your comment has been deleted.', 'success')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+  })
 }

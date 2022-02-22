@@ -77,7 +77,7 @@ router.get('/assistants/:slug', showAssistants)
 router.post('/meeti/:id', sanitizeFieldsComment, addComment)
 
 // delete comments to meeti
-router.post('/delete-comment/:id', deleteComment)
+router.post('/delete-comment', deleteComment)
 
 // show user profile in the frontend
 router.get('/users/:id', getUser)
