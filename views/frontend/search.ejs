@@ -1,0 +1,16 @@
+<div class="container">
+  <h1>
+    <%- title %>
+  </h1>
+  <% if(meetis.length) { %> 
+  <div class="grid colum-md-3 ">
+    <% meetis.forEach(meeti => { %>
+
+      <%- include('../partials/card-meeti', { meeti }) %> 
+
+    <% }) %>
+  </div> <!-- grid -->
+  <% } else { %> 
+    <p>No results</p>
+  <% } %> 
+</div>
