@@ -127,3 +127,16 @@
 
   </div>
 </main>
+
+<h2>Other Meeti's nearby</h2>
+<div class="container nearby">
+  <% if(meetisNear.length) { %>
+    <% meetisNear.forEach(meeti => { %> 
+
+      <%- include('../partials/card-meeti', { meeti }) %> 
+
+    <% }) %>
+  <% } else { %>
+    <p>No meeti's nearby</p>
+  <% } %> 
+</div>

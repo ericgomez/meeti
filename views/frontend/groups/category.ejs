@@ -5,35 +5,9 @@
   <% if(meetis.length) { %> 
   <div class="grid colum-md-3 ">
     <% meetis.forEach(meeti => { %>
-    <div class="card">
-      <% if(meeti.group.image) { %> 
-        <img src="/uploads/groups/<%- meeti.group.image %>" alt="<%- meeti.group.name  %>">
-      <% } else { %>
-        <img src="/img/imagen1.jpg" alt="image default">
-      <% } %>
 
-      <div class="card-text">
-        <p class="date"><%- moment(`${meeti.date} ${meeti.time}`).format('LLLL') %></p>
-        <a href="#">
-          <h3><%- meeti.title %></h3>
-        </a>
+      <%- include('../../partials/card-meeti', { meeti }) %> 
 
-        <div class="info-author">
-          <div class="image">
-            <% if(meeti.user.image) { %> 
-              <img src="/uploads/profiles/<%- meeti.user.image %>" alt="<%- meeti.title %>">
-            <% } %>
-          </div>
-          <div class="information">
-            <p>Organized by:</p>
-            <p class="author">
-              <a href="/users/<%- meeti.user.id %>"><%- meeti.user.name %></a>
-            </p>
-          </div>
-        </div>
-
-      </div>
-    </div>  <!-- card -->
     <% }) %>
   </div> <!-- grid -->
   <% } else { %> 

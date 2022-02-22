@@ -20,18 +20,18 @@ const getMeeti = async (req, res) => {
     return res.redirect('/')
   }
 
+  const comments = await Comment.findAll({
+    where: { meetiId: meeti.id },
+    include: [{ model: User, attributes: ['id', 'name', 'image'] }]
+  })
+
   // get meetis near to the current meeti
   const location = literal(
     `ST_GeomFromText('POINT(${meeti.location.coordinates[0]} ${meeti.location.coordinates[1]})')`
   )
 
-  //ST_Distance_Sphere returns the distance in meters
-  const distance = fn('ST_Distance_Sphere', col('location'), location)
-
-  const comments = await Comment.findAll({
-    where: { meetiId: meeti.id },
-    include: [{ model: User, attributes: ['id', 'name', 'image'] }]
-  })
+  // ST_DistanceSphere returns the distance in meters
+  const distance = fn('ST_DistanceSphere', col('location'), location)
 
   // found meetis near to the current meeti
   const meetisNear = await Meeti.findAll({
@@ -40,7 +40,8 @@ const getMeeti = async (req, res) => {
       { model: Group },
       { model: User, attributes: ['id', 'name', 'image'] }
     ],
-    order: [[distance, 'ASC']],
+    order: distance,
+    offset: 1, // skip the current meeti
     limit: 3
   })
 
@@ -48,6 +49,7 @@ const getMeeti = async (req, res) => {
     title: meeti.title,
     meeti,
     comments,
+    meetisNear,
     moment
   })
 }
