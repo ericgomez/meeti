@@ -42,6 +42,18 @@ const sanitizeFieldsMeeti = async (req, res, next) => {
   next()
 }
 
+const sanitizeFieldsComment = async (req, res, next) => {
+  const rules = [
+    body('comment')
+      .trim()
+      .escape()
+  ]
+
+  await Promise.all(rules.map(validation => validation.run(req)))
+
+  next()
+}
+
 const sanitizeFieldsProfile = async (req, res, next) => {
   const rules = [
     body('name')
@@ -59,5 +71,6 @@ const sanitizeFieldsProfile = async (req, res, next) => {
 
 module.exports = {
   sanitizeFieldsMeeti,
+  sanitizeFieldsComment,
   sanitizeFieldsProfile
 }

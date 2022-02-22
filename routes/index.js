@@ -4,6 +4,7 @@ const router = Router()
 
 const {
   sanitizeFieldsMeeti,
+  sanitizeFieldsComment,
   sanitizeFieldsProfile
 } = require('./../middlewares/sanitizeFields')
 const { home } = require('./../controllers/homeController')
@@ -56,6 +57,7 @@ const {
   getGroup,
   showCategory
 } = require('./../controllers/frontend/groupsControllerFE')
+const { addComment } = require('./../controllers/frontend/commentsControllerFE')
 
 router.get('/', home)
 
@@ -67,6 +69,9 @@ router.post('/confirm-assistance/:slug', confirmAssistance)
 
 // show assistants to meeti
 router.get('/assistants/:slug', showAssistants)
+
+// add comments to meeti
+router.post('/meeti/:id', sanitizeFieldsComment, addComment)
 
 // show user profile in the frontend
 router.get('/users/:id', getUser)
