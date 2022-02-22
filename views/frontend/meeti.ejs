@@ -84,17 +84,21 @@
           </div>
         </div>
 
-        <form action="#" class="default-form comments">
-          <legend>Add new comment</legend>
-          <div class="campo">
-            <label for="">Comment</label>
-            <textarea name="comment" ></textarea>
-          </div>
+        <% if(user.id) { %> 
+          <form action="/meeti/<%- meeti.slug %>" method="post" class="default-form comments">
+            <legend>Add new comment</legend>
+            <div class="campo">
+              <label for="">Comment</label>
+              <textarea name="comment" ></textarea>
+            </div>
 
-          <div class="campo send">
-            <input type="submit" value="Send" class="btn btn-pink">
-          </div>
-        </form>
+            <div class="campo send">
+              <input type="submit" value="Send" class="btn btn-pink">
+            </div>
+          </form>
+        <% } else { %> 
+          <p>Login to add a comment</p>
+        <% } %> 
 
       </div>
 
