@@ -32,12 +32,16 @@ const deleteComment = e => {
           commentId
         })
         .then(res => {
-          console.log(res)
+          Swal.fire('Deleted!', res.data, 'success')
 
-          Swal.fire('Deleted!', 'Your comment has been deleted.', 'success')
+          // remove the comment from the DOM
+          form.parentElement.parentElement.remove()
         })
         .catch(err => {
-          console.log(err)
+          console.log(err.response)
+          if (err.response.status === 401 || err.response.status === 404) {
+            Swal.fire('Error', err.response.data, 'error')
+          }
         })
     }
   })
