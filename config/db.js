@@ -6,8 +6,15 @@ const db = new Sequelize(
   process.env.DB_PASS,
   {
     host: process.env.DB_HOST,
-    dialect: 'postgres'
+    dialect: 'postgres',
     // logging: false // false to disable logging in console
+    dialectOptions: {
+      // secure connection of only production
+      ssl: {
+        require: true,
+        rejectUnauthorized: false
+      }
+    }
   }
 )
 
